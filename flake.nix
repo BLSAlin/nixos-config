@@ -44,5 +44,6 @@
 # [{ ... fullName = "a"} {... fullName = "b"}] -> {"a" = { ... } "b" = { ... }}
     nixosConfigurations = toConfig (map asAttr linuxSystems);
     debugLinuxSystems = map asAttr linuxSystems;
+    inherit linuxSystems;
   };
 }
