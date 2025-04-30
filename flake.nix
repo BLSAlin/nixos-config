@@ -24,17 +24,26 @@
         fullName = architecture + "_" + name;
       }  
     ];
-    forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f;
+    # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
   in {
-    nixosConfigurations = nixpkgs.lib.mergeAttrsList (nixpkgs.lib.genAttrs (asNames linuxSystems) (system:
-      nixpkgs.lib.nixosSystem {
-        inherit system;
+    nixosConfigurations = map (fullSystemInformation: nixpkgs.lib.nixosSystem {
+        inherit fullSystemInformation;
+        system = fullSystemInformation.fullName;
+
         specialArgs = inputs;
         modules = [
           ./configuration.nix
         ];
-      }
-    )) asAttr linuxSystems;
+      });
 
+# nixosConfigurations = nixpkgs.lib.mergeAttrsList (nixpkgs.lib.genAttrs (asNames linuxSystems) (system:
+#       nixpkgs.lib.nixosSystem {
+#         inherit system;
+#         specialArgs = inputs;
+#         modules = [
+#           ./configuration.nix
+#         ];
+#       }
+#     )) asAttr linuxSystems;
   };
 }
