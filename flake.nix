@@ -6,12 +6,22 @@
   };
 
   outputs = { self, nixpkgs } @inputs: let
-    linuxSystems = [ "x86_64-linux" ];
-    darwinSystems = [ "aarch64-darwin" ];
+    linuxSystems = [ 
+      {
+        architecture = "x86_64-linux";
+        name = "stormbringer";
+      } 
+    ];
+    darwinSystems = [ 
+      {
+        architecture = "aarch64-darwin";
+        name = "mercury";
+      }  
+    ];
     forAllSystems = f: nixpkgs.libs.genAttrs (linuxSystems ++ darwinSystems) f;
   in {
     
-    nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (system:
+    nixosConfigurations = nixpkgs.lib.genAttrs (map linuxSystems (ls: ls.architecture + "_" + ls.name)) (system:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = inputs;

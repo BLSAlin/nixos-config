@@ -1,12 +1,12 @@
 { config, lib, pkgs, ... }: let
-    ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+    ifEachGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
     keyAsString = path: lib.splitString "\n" (builtins.readFile path);
 in {
 
     users.users.alin = {
         isNormalUser = true;
         description = "Alin";
-        extraGroups = ifTheyExist
+        extraGroups = ifEachGroupExists
         [
             "audio"
             "git"
