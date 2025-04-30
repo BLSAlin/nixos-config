@@ -1,15 +1,25 @@
 {
-  description = "A very basic flake";
+  description = "Nix customizations spanning NixOs and MacOs";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }: {
-
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+  outputs = { self, nixpkgs }: let
+    linuxSystems = [ "x86_64-linux" ];
+    darwinSystems = [ "x86_64-darwin" ];
+    forAllSystems = f: nixpkgs.libs.genAttrs (linuxSystems ++ darwinSystems) f;
+  in {
+    
+    nixosConfigurations = nixpkgs.lib.genAttrs linuxSystems (system:
+      nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = inputs;
+        modules = [
+          ./configuration.nix
+        ]
+      }
+    );
 
   };
 }
