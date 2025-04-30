@@ -1,9 +1,11 @@
 { config, ... }: let
     ifEachGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+    user = "andra";
 in {
-    users.users.andra = {
+    
+    users.users.${user} = {
         isNormalUser = true;
-        description = "Andra";
+        description = "${user}'s user";
         extraGroups = ifEachGroupExists [
             "audio"
             "networkmanager"
