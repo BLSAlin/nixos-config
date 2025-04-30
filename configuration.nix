@@ -40,13 +40,6 @@
         LC_TIME = "en_IE.UTF-8";
     };
 
-    services = {
-        printing = {
-            enable = true;
-            drivers = [ pkgs.brlaser ];
-        };
-    };
-
     # Enable sound with pipewire.
     hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
@@ -54,8 +47,7 @@
     # Allow unfree packages
     nixpkgs.config.allowUnfree = true;
 
-    # List packages installed in system profile. To search, run:
-    # $ nix search wget
+
     environment.systemPackages = import ./hosts/common/packages.nix {
         inherit pkgs;
     };
