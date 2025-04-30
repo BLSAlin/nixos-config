@@ -35,9 +35,8 @@
       ];
     };
     
-    toConfig = fullSystemInformationList:
-          listToSet "system"
-            (map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList);
+    toConfigList = fullSystemInformationList:
+            map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList;
       
 
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
@@ -45,8 +44,12 @@
 
 # ["a" "b"] -> {"a" = { ... } "b" = { ... }}
 # [{ ... fullName = "a"} {... fullName = "b"}] -> {"a" = { ... } "b" = { ... }}
-    nixosConfigurations = toConfig (asAttr linuxSystems);
-    debugLinuxSystems = asAttr linuxSystems;
+    inherit listToSet;
+    inherit asNames;
+    inherit asAttr;
     inherit linuxSystems;
+
+    nixosConfigurations = listToSet "fullSystemInformation.fullName" toConfigList (asAttr linuxSystems);
+    debugLinuxSystems = asAttr linuxSystems;
   };
 }
