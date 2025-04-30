@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
   };
 
-  outputs = { self, nixpkgs }: let
+  outputs = { self, nixpkgs } @inputs: let
     linuxSystems = [ "x86_64-linux" ];
     darwinSystems = [ "x86_64-darwin" ];
     forAllSystems = f: nixpkgs.libs.genAttrs (linuxSystems ++ darwinSystems) f;
