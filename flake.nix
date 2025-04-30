@@ -36,9 +36,8 @@
     };
     
     toConfig = fullSystemInformationList:
-          listToSet
-            (map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList)
-            "system";
+          listToSet "system"
+            (map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList);
       
 
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
