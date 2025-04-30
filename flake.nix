@@ -21,7 +21,7 @@
     forAllSystems = f: nixpkgs.libs.genAttrs (linuxSystems ++ darwinSystems) f;
   in {
     
-    nixosConfigurations = nixpkgs.lib.genAttrs (map linuxSystems (ls: ls.architecture + "_" + ls.name)) (system:
+    nixosConfigurations = nixpkgs.lib.genAttrs (map (ls: ls.architecture + "_" + ls.name) linuxSystems) (system:
       nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = inputs;
