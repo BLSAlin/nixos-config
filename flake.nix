@@ -26,15 +26,14 @@
     ];
 
     toConfig = fullSystemInformation:
-          nixpkgs.libs.mergeAttrs fullSystemInformation
-          system: nixpkgs.lib.nixosSystem {
+          nixpkgs.libs.mergeAttrs fullSystemInformation (system: nixpkgs.lib.nixosSystem {
             inherit system;
 
             specialArgs = inputs;
             modules = [
               ./configuration.nix
             ];
-          } fullSystemInformation.fullName;
+          } fullSystemInformation.fullName);
         
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
   in {
