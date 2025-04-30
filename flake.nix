@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs } @inputs: let
     asNames = systemList: map(l: l.fullName) systemList;
-    asAttr = systemList: map(l: { system = l; } l) systemList;
+    asAttr = systemList: map(l: { fullSystemInformation = l; } l) systemList;
 
     linuxSystems = [ 
       rec {
@@ -24,30 +24,23 @@
         fullName = architecture + "_" + name;
       }  
     ];
+
+    toConfig = fullSystemInformation:
+          system: nixpkgs.lib.nixosSystem {
+            inherit system;
+            inherit fullSystemInformation;
+
+            specialArgs = inputs;
+            modules = [
+              ./configuration.nix
+            ];
+          } fullSystemInformation.fullName;
+        
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
   in {
-    nixosConfigurations = map (fullSystemInformation: 
-      {
-        ${fullSystemInformation.fullName} = nixpkgs.lib.nixosSystem {
-          inherit fullSystemInformation;
-          system = fullSystemInformation.fullName;
 
-          specialArgs = inputs;
-          modules = [
-            ./configuration.nix
-          ];
-        };
-      }
-      ) linuxSystems;
-
-# nixosConfigurations = nixpkgs.lib.mergeAttrsList (nixpkgs.lib.genAttrs (asNames linuxSystems) (system:
-#       nixpkgs.lib.nixosSystem {
-#         inherit system;
-#         specialArgs = inputs;
-#         modules = [
-#           ./configuration.nix
-#         ];
-#       }
-#     )) asAttr linuxSystems;
+# ["a" "b"] -> {"a" = { ... } "b" = { ... }}
+# [{ ... fullName = "a"} {... fullName = "b"}] -> {"a" = { ... } "b" = { ... }}
+    nixosConfigurations = toConfig (map asAttr linuxSystems);
   };
 }
