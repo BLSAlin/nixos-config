@@ -6,8 +6,8 @@
   };
 
   outputs = { self, nixpkgs } @inputs: let
-    asNames = systemList: map(l: l.fullName) systemList;
-    asAttr = systemList: map(l: { fullSystemInformation = l; } l) systemList;
+    asNames = systemList: map (l: l.fullName) systemList;
+    asAttr = systemList: map (l: { fullSystemInformation = l; } l) systemList;
 
     linuxSystems = [ 
       rec {
