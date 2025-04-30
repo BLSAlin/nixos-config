@@ -37,7 +37,7 @@
     
     toConfig = fullSystemInformationList:
           listToSet
-            map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList
+            (map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList)
             "system";
       
 
