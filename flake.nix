@@ -8,6 +8,7 @@
   outputs = { self, nixpkgs } @inputs: let
     asNames = systemList: map (l: l.fullName) systemList;
     asAttr = systemList: map (l: { fullSystemInformation = l; }) systemList;
+    listToSet = field: list: builtins.listToAttrs ( map ( v: { name = v.${field}; value = v;  } ) list );
 
     linuxSystems = [ 
       rec {
@@ -35,10 +36,11 @@
     };
     
     toConfig = fullSystemInformationList:
-          map 
-          (fsi: { fsi.fullName = (fsi // (nixosSystemFunc fsi.fullName)); })
-          fullSystemInformationList;
-        
+          listToSet
+            map (fsi: (fsi // (nixosSystemFunc fsi.fullName))) fullSystemInformationList
+            "system";
+      
+
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
   in {
 
