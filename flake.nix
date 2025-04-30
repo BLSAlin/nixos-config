@@ -26,15 +26,19 @@
     ];
     # forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f; # TODO NEEDS UPDATING
   in {
-    nixosConfigurations = map (fullSystemInformation: nixpkgs.lib.nixosSystem {
-        inherit fullSystemInformation;
-        system = fullSystemInformation.fullName;
+    nixosConfigurations = map (fullSystemInformation: 
+      {
+        ${fullSystemInformation.fullName} = nixpkgs.lib.nixosSystem {
+          inherit fullSystemInformation;
+          system = fullSystemInformation.fullName;
 
-        specialArgs = inputs;
-        modules = [
-          ./configuration.nix
-        ];
-      });
+          specialArgs = inputs;
+          modules = [
+            ./configuration.nix
+          ];
+        };
+      }
+      ) linuxSystems;
 
 # nixosConfigurations = nixpkgs.lib.mergeAttrsList (nixpkgs.lib.genAttrs (asNames linuxSystems) (system:
 #       nixpkgs.lib.nixosSystem {
