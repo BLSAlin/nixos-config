@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }: let
     ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+    keyAsString = path: lib.splitSTring "\n" (builtins.readFile path);
 in {
 
     users.users.alin = {
@@ -15,7 +16,7 @@ in {
             "podman"
             "wheel"
         ];
-        openssh.authorizedKeys.keys = lib.splitString "\n" (builtins.readFile ../../home/alin/.ssh/alin_key.pub);
+        openssh.authorizedKeys.keys = keyAsString ../../home/alin/.ssh/alin_key.pub;
     };
 
     programs.git = {
