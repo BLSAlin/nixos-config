@@ -1,5 +1,8 @@
 { pkgs, ... }:
 with pkgs; [
+  # Document editor
+  onlyoffice-desktopeditors
+
   # Media related packages
   ffmpeg
   vlc
@@ -10,4 +13,6 @@ with pkgs; [
 
   # Entertainment
   spotify
+
+  kdePackages.kdeConnect-kde
 ]

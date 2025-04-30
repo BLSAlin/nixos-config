@@ -43,10 +43,9 @@
 
     hardware.xone.enable = true;
 
-    environment.systemPackages = with pkgs; [
-        kdePackages.kate
-        heroic
-    ] ++ import ../pcs/packages.nix {
+    environment.systemPackages = import ./packages.nix {
+        inherit pkgs;
+    }++ import ../pcs/packages.nix {
         inherit pkgs;
     };
 }
