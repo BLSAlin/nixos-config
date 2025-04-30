@@ -26,7 +26,7 @@
     ];
 
     toConfig = fullSystemInformation:
-          nixpkgs.libs.mergeAttrs fullSystemInformation (system: nixpkgs.lib.nixosSystem {
+          nixpkgs.libs.mergeAttrs fullSystemInformation (system: nixpkgs.libs.nixosSystem {
             inherit system;
 
             specialArgs = inputs;
