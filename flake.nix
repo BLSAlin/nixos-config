@@ -7,7 +7,7 @@
 
   outputs = { self, nixpkgs } @inputs: let
     linuxSystems = [ "x86_64-linux" ];
-    darwinSystems = [ "x86_64-darwin" ];
+    darwinSystems = [ "aarch64-darwin" ];
     forAllSystems = f: nixpkgs.libs.genAttrs (linuxSystems ++ darwinSystems) f;
   in {
     

@@ -19,11 +19,15 @@
             pulse.enable = true;
         };
 
+        pulseaudio.enable = true;
+
         # Enable printing support
         printing = {
             enable = true;
             drivers = [ pkgs.brlaser ];
         };
+
+
     };
 
     # Install firefox.

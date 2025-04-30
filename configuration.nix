@@ -40,8 +40,6 @@
         LC_TIME = "en_IE.UTF-8";
     };
 
-    # Enable sound with pipewire.
-    hardware.pulseaudio.enable = false;
     security.rtkit.enable = true;
 
     # Allow unfree packages
@@ -51,6 +49,8 @@
     environment.systemPackages = import ./hosts/common/packages.nix {
         inherit pkgs;
     };
+
+    environment.variables.EDITOR = "vim";
 
     system.stateVersion = "24.11"; # Did you read the comment?
 
