@@ -56,15 +56,9 @@
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs; [
-        vim
-        wget
-        curl
-        rclone
-        git
-        neofetch
-        home-manager
-    ];
+    environment.systemPackages = import ./hosts/common/packages.nix {
+        inherit pkgs;
+    };
 
     system.stateVersion = "24.11"; # Did you read the comment?
 
