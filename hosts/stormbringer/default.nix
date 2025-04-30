@@ -46,7 +46,7 @@
     environment.systemPackages = with pkgs; [
         kdePackages.kate
         heroic
-    ] // import ../pcs/packages.nix {
+    ] ++ import ../pcs/packages.nix {
         inherit pkgs;
     };
 }
