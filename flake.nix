@@ -10,7 +10,7 @@
     asAttr = systemList: map(l: { system = l; } l) systemList;
 
     linuxSystems = [ 
-      {
+      rec {
         architecture = "x86_64-linux";
         name = "stormbringer";
         owner = "alin";
@@ -18,9 +18,10 @@
       } 
     ];
     darwinSystems = [ 
-      {
+      rec {
         architecture = "aarch64-darwin";
         name = "mercury";
+        fullName = architecture + "_" + name;
       }  
     ];
     forAllSystems = f: nixpkgs.libs.genAttrs (asNames linuxSystems ++ asNames darwinSystems) f;
