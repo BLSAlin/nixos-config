@@ -48,6 +48,8 @@
     inherit asNames;
     inherit asAttr;
     inherit linuxSystems;
+    inherit toConfigList;
+    inherit linuxSystems;
 
     nixosConfigurations = listToSet "fullSystemInformation.fullName" toConfigList (asAttr linuxSystems);
     debugLinuxSystems = asAttr linuxSystems;
