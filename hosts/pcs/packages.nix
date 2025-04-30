@@ -14,5 +14,5 @@ with pkgs; [
   # Entertainment
   spotify
 
-  kdePackages.kdeConnect-kde
+  kdePackages.kdeconnect-kde
 ]
