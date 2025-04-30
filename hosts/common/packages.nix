@@ -11,10 +11,6 @@ with pkgs; [
   rclone
   git
 
-  # Media related packages
-  ffmpeg
-  vlc
-
   neofetch
   home-manager
 ]
