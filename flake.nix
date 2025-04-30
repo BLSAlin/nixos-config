@@ -17,7 +17,7 @@
         specialArgs = inputs;
         modules = [
           ./configuration.nix
-        ]
+        ];
       }
     );
 
