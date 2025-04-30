@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }: let
     ifTheyExist = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-    keyAsString = path: lib.splitSTring "\n" (builtins.readFile path);
+    keyAsString = path: lib.splitString "\n" (builtins.readFile path);
 in {
 
     users.users.alin = {
