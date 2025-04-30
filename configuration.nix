@@ -41,7 +41,10 @@
     };
 
     services = {
-        printing.enable = true;
+        printing = {
+            enable = true;
+            drivers = [ pkgs.brlaser ];
+        };
     };
 
     # Enable sound with pipewire.
@@ -57,6 +60,7 @@
         vim
         wget
         curl
+        rclone
         git
         neofetch
         home-manager
