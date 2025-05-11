@@ -8,7 +8,7 @@
   outputs = { self, nixpkgs } @inputs: let
     asNames = systemList: map (l: l.fullName) systemList;
     asAttr = systemList: map (l: { fullSystemInformation = l; }) systemList;
-    listToSet = field: list: builtins.listToAttrs ( map ( v: { name = v.${field}; value = v;  } ) list );
+    toFullNameSet = list: builtins.listToAttrs (map (v: { name = v.fullSystemInformation.fullName; value = v; }) list);
 
     linuxSystems = [ 
       rec {
@@ -44,13 +44,13 @@
 
 # ["a" "b"] -> {"a" = { ... } "b" = { ... }}
 # [{ ... fullName = "a"} {... fullName = "b"}] -> {"a" = { ... } "b" = { ... }}
-    inherit listToSet;
+    inherit toFullNameSet;
     inherit asNames;
     inherit asAttr;
     inherit linuxSystems;
     inherit toConfigList;
 
-    nixosConfigurations = listToSet "fullSystemInformation.fullName" toConfigList (asAttr linuxSystems);
+    nixosConfigurations = toFullNameSet (toConfigList (asAttr linuxSystems));
     debugLinuxSystems = asAttr linuxSystems;
   };
 }
