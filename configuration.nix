@@ -55,11 +55,41 @@
         git
 
         neofetch
-        home-manager
+        # home-manager
     ];
 
     environment.variables.EDITOR = "vim";
 
     system.stateVersion = "24.11"; # Did you read the comment?
 
+
+
+# TODO REMOVE ONCE CLEANED UP
+    users.users.alin = {
+        isNormalUser = true;
+        description = "Alin";
+        extraGroups =
+        [
+            "audio"
+            "git"
+            "networkmanager"
+            "libvirtd"
+            "docker"
+            "podman"
+            "wheel"
+        ];
+        openssh.authorizedKeys.keys = keyAsString ./home/alin/.ssh/alin_key.pub;
+    };
+
+    services.openssh = {
+        enable = true;
+        settings = {
+            PasswordAuthentication = false;
+            PermitRootLogin = "no";
+
+            StreamlocalBindUnlink = "yes";
+            AcceptEnv = "WAYLAND_DISPLAY";
+        };
+        openFirewall = true;
+    };
 }
