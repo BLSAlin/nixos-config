@@ -10,6 +10,10 @@
     imports =
         [ # Include the results of the hardware scan.
             ./hardware-configuration.nix
+            ./hosts/stormbringer
+
+            ./users/alin
+            ./users/andra
         ];
 
 
@@ -42,21 +46,9 @@
     nixpkgs.config.allowUnfree = true;
 
 
-    environment.systemPackages = with pkgs; [
-        # Basics
-        vim
-        htop
-        btop
-
-        # Internet tools
-        wget
-        curl
-        rclone
-        git
-
-        neofetch
-        home-manager
-    ];
+    environment.systemPackages = import ./hosts/common/packages.nix {
+        inherit pkgs;
+    };
 
     environment.variables.EDITOR = "vim";
 

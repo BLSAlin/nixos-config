@@ -4,6 +4,7 @@ with pkgs; [
   # Basics
   vim
   htop
+  btop
 
   # Internet tools
   wget
