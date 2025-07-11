@@ -9,5 +9,7 @@
     ./printing.nix
     ./xone.nix
     ./smb-drive.nix
+    # Services
+    ./jellyfin-service.nix
   ];
 }

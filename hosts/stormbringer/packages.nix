@@ -39,6 +39,10 @@
 
     # Other
     home-manager
+
+    # Libs
+    rocmPackages.amdsmi
+    rocmPackages.rocm-smi
   ];
 
   fonts.packages = with pkgs; [
