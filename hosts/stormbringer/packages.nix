@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   nixpkgs.config = {
     allowUnfree = true;
+    rocmSupport = true;
   };
 
   programs.firefox.enable = true;
@@ -10,6 +11,8 @@
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };
+
+  hardware.amdgpu.opencl.enable = true;
 
   environment.systemPackages = with pkgs; [
     neovim
