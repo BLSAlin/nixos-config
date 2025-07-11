@@ -1,28 +1,56 @@
 {
   description = "System configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = {nixpkgs, home-manager, ...}@inputs:
+  outputs = {nixpkgs, nixpkgs-stable, home-manager, ...}@inputs:
     let
       system = "x86_64-linux";
-    in {
+      user = "alin";
+      homeStateVersion = "25.05";
+      hosts = [
+        { hostname = "stormbringer"; stateVersion = "25.05"; }
+      ];
 
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
+      makeSystem = {hostname, stateVersion}: nixpkgs.lib.nixosSystem {
+        system = system;
+        specialArgs = {
+          pkgs-stable = import nixpkgs-stable {
+            system = system;
+            config.allowUnfree = true;
+          };
+
+          inherit inputs stateVersion hostname user;
+        };
+
         modules = [
-          ./nixos/configuration.nix
+          ./hosts/${hostname}/configuration.nix
         ];
       };
 
-      homeConfigurations.alin = home-manager.lib.homeManagerConfiguration {
+    in {
+
+      nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
+        configs // {
+          "${host.hostname}" = makeSystem {
+            inherit (host) hostname stateVersion;
+          };
+        }) {} hosts;
+
+      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {
+          inherit inputs homeStateVersion user;
+        };
+
         modules = [
           ./home-manager/home.nix
         ];
