@@ -89,7 +89,6 @@
     packages = with pkgs; [
       kdePackages.kate
       git
-    #  thunderbird
     ];
   };
 
