@@ -14,10 +14,12 @@
     # Games
     heroic
     bottles
+    prismlauncher-unwrapped
 
     # Others
     microsoft-edge
     spotify
     obs-studio
+    jellyfin-media-player
   ];
 }

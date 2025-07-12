@@ -9,9 +9,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    firefox-addons = {
+			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+			inputs.nixpkgs.follows = "nixpkgs";
+		};
   };
 
-  outputs = {nixpkgs, nixpkgs-stable, home-manager, ...}@inputs:
+  outputs = {nixpkgs, nixpkgs-stable, home-manager, firefox-addons, ...}@inputs:
     let
       system = "x86_64-linux";
       user = "alin";
@@ -49,6 +54,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {
           inherit inputs homeStateVersion user;
+          firefox-addons = firefox-addons.packages.${system};
         };
 
         modules = [

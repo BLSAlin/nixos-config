@@ -16,7 +16,7 @@
         hms = "home-manager switch --flake ${flakeDir}";
 #         pkgs = "nvim ${flakeDir}/nixos/packages";
 
-        vim = "nvim"
+        vim = "nvim";
 
         ll = "ls -alh";
         ff = "fastfetch";

@@ -4,12 +4,13 @@
     rocmSupport = true;
   };
 
-  programs.firefox.enable = true;
+#   programs.firefox.enable = true;
 
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
+    extraPackages = with pkgs; [ kdePackages.breeze ];
   };
 
   hardware.amdgpu.opencl.enable = true;
