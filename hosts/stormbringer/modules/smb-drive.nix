@@ -1,4 +1,12 @@
-{config, ...}: {
+{config, pkgs, lib, ...}: {
+  security.wrappers."mount.cifs" = {
+    program = "mount.cifs";
+      source = "${lib.getBin pkgs.cifs-utils}/bin/mount.cifs";
+      owner = "root";
+      group = "root";
+      setuid = true;
+  };
+
   fileSystems."/mnt/remoteBigData" =
     { device = "//10.69.50.11/big-data";
       fsType = "cifs";

@@ -13,11 +13,17 @@
     extraPackages = with pkgs; [ kdePackages.breeze ];
   };
 
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    defaultEditor = true;
+  };
+
+
   hardware.amdgpu.opencl.enable = true;
 
   environment.systemPackages = with pkgs; [
-    neovim
-
     kdePackages.kate
     onlyoffice-desktopeditors
     vlc
