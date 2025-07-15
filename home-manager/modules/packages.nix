@@ -10,6 +10,7 @@
     # Development
     vscode
     jetbrains.idea-ultimate
+    jdk17
 
     # Games
     heroic
@@ -21,5 +22,11 @@
     spotify
     obs-studio
     jellyfin-media-player
+
+    ptyxis
+
+
+    # Fonts
+    fira-code
   ];
 }

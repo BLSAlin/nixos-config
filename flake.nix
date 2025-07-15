@@ -1,22 +1,22 @@
 {
   description = "System configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
 
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     firefox-addons = {
 			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-			inputs.nixpkgs.follows = "nixpkgs";
+			inputs.nixpkgs.follows = "nixpkgs-unstable";
 		};
   };
 
-  outputs = {nixpkgs, nixpkgs-stable, home-manager, firefox-addons, ...}@inputs:
+  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, ...}@inputs:
     let
       system = "x86_64-linux";
       user = "alin";
@@ -28,7 +28,7 @@
       makeSystem = {hostname, stateVersion}: nixpkgs.lib.nixosSystem {
         system = system;
         specialArgs = {
-          pkgs-stable = import nixpkgs-stable {
+          pkgs-unstable = import nixpkgs-unstable {
             system = system;
             config.allowUnfree = true;
           };
@@ -51,7 +51,7 @@
         }) {} hosts;
 
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = nixpkgs-unstable.legacyPackages.${system};
         extraSpecialArgs = {
           inherit inputs homeStateVersion user;
           firefox-addons = firefox-addons.packages.${system};
