@@ -44,7 +44,6 @@ disabled = false
 [hostname]
 format="[$hostname ]($style)"
 style="bg:#6C3CB4"
-ssh_only=false
 
 # An alternative to the username module which displays a symbol that
 # represents the current operating system

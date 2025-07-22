@@ -4,6 +4,10 @@
     enable = true;
     generateCompletions = true;
 
+    interactiveShellInit = ''
+    	set fish_greeting
+    '';
+
 
     shellAbbrs =
       let

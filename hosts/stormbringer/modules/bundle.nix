@@ -12,7 +12,6 @@
     # Hardware fixes
     ./amdgpu-hardware-fix.nix
 
-    # Services
-    ./jellyfin-service.nix
+    ./services/bundle.nix
   ];
 }

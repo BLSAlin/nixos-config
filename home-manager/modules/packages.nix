@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, pkgs-stable, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   services.kdeconnect.enable = true;
@@ -11,6 +11,8 @@
     vscode
     jetbrains.idea-ultimate
     jdk17
+    jetbrains.rider
+    dotnet-sdk_9
 
     # Games
     heroic
@@ -18,15 +20,18 @@
     prismlauncher-unwrapped
 
     # Others
-    microsoft-edge
+    brave
     spotify
     obs-studio
     jellyfin-media-player
-
     ptyxis
 
 
     # Fonts
     fira-code
+  ] ++ with pkgs-stable; [
+
+    # Others
+    microsoft-edge
   ];
 }

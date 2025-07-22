@@ -56,6 +56,10 @@
           inherit inputs homeStateVersion user;
           firefox-addons = firefox-addons.packages.${system};
         };
+        pkgs-stable = import nixpkgs {
+          system = system;
+          config.allowUnfree = true;
+        };
 
         modules = [
           ./home-manager/home.nix
