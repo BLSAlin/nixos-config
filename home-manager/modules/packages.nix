@@ -29,9 +29,9 @@
 
     # Fonts
     fira-code
-  ] ++ with pkgs-stable; [
+  ] ++ (with pkgs-stable; [
 
     # Others
     microsoft-edge
-  ];
+  ]);
 }

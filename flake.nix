@@ -54,11 +54,13 @@
         pkgs = nixpkgs-unstable.legacyPackages.${system};
         extraSpecialArgs = {
           inherit inputs homeStateVersion user;
+
+          pkgs-stable = import nixpkgs {
+            system = system;
+            config.allowUnfree = true;
+          };
+
           firefox-addons = firefox-addons.packages.${system};
-        };
-        pkgs-stable = import nixpkgs {
-          system = system;
-          config.allowUnfree = true;
         };
 
         modules = [
