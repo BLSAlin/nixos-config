@@ -13,12 +13,12 @@
     extraPackages = with pkgs; [ kdePackages.breeze ];
   };
 
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    defaultEditor = true;
-  };
+   programs.neovim = {
+     enable = true;
+     viAlias = true;
+     vimAlias = true;
+     defaultEditor = true;
+   };
 
 
   hardware.amdgpu.opencl.enable = true;

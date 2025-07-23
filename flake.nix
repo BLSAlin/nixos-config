@@ -11,12 +11,18 @@
     };
 
     firefox-addons = {
-			url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-			inputs.nixpkgs.follows = "nixpkgs-unstable";
-		};
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, ...}@inputs:
+  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, nixvim, ...}@inputs:
     let
       system = "x86_64-linux";
       user = "alin";

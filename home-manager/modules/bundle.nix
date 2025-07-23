@@ -6,6 +6,8 @@
 
     ./starship/starship.nix
 
+    ./nixvim/bundle.nix
+
 #     ./plasma-manager/bundle.nix
   ];
 }
