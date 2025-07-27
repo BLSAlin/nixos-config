@@ -10,4 +10,13 @@
       { from = 1714; to = 1764; } # KDE Connect
     ];
   };
+
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+    };
+  };
 }

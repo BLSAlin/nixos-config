@@ -40,6 +40,7 @@
     rclone
     btop
     htop
+    bat
     cifs-utils
 
     # Wayland

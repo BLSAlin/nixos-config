@@ -3,65 +3,63 @@
     enable = true;
     defaultEditor = true;
 
-    config = {
-      viAlias = true;
-      vimAlias = true;
+    viAlias = true;
+    vimAlias = true;
 
-      opts = {
-        updatetime = 100;
-        termguicolors = true; # Enables 24-bit RGB color in the |TUI|
+    globals.mapleader = "<Space>";
 
-        number = true; # Display the absolute line number of the current line
-        relativenumber = true; # Relative line numbers
+    opts = {
+      updatetime = 100;
+      termguicolors = true; # Enables 24-bit RGB color in the |TUI|
 
-        mouse = "a"; # Enable mouse control
-        mousemodel = "extend"; # Mouse right-click extends the current selection
+      number = true; # Display the absolute line number of the current line
+      relativenumber = true; # Relative line numbers
 
-        autoindent = true; # Do clever autoindenting
-        confirm = true;
-        clipboard = "unnamedplus";
+      mouse = "a"; # Enable mouse control
+      mousemodel = "extend"; # Mouse right-click extends the current selection
 
-        cursorline = true; # Highlight the screen line of the cursor
-        cursorcolumn = false; # Highlight the screen column of the cursor
+      autoindent = true; # Do clever autoindenting
+      confirm = true;
+      clipboard = "unnamedplus";
 
-        modeline = true; # Tags such as 'vim:ft=sh'
-        modelines = 100; # Sets the type of modelines
+      cursorline = true; # Highlight the screen line of the cursor
+      cursorcolumn = false; # Highlight the screen column of the cursor
 
-        list = true;
-        shiftround = true;
+      modeline = true; # Tags such as 'vim:ft=sh'
+      modelines = 100; # Sets the type of modelines
 
-        expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
-        shiftwidth = 2; # Number of spaces used for each step of (auto)indent (local to buffer)
-        tabstop = 2; # Number of spaces a <Tab> in the text stands for (local to buffer)
+      list = true;
+      shiftround = true;
 
-
-        signcolumn = "yes"; # Whether to show the signcolumn
-        smartcase = true; # Override the 'ignorecase' option if the search pattern contains upper
-        smartindent = true;
+      expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
+      shiftwidth = 2; # Number of spaces used for each step of (auto)indent (local to buffer)
+      tabstop = 2; # Number of spaces a <Tab> in the text stands for (local to buffer)
 
 
-        wrap = false; # Prevent text from wrapping
-
-        ignorecase = true;
-        incsearch = true;
-        completeopt = "menu,menuone,noselect";
-        wildmode = "longest:full,full";
+      signcolumn = "yes"; # Whether to show the signcolumn
+      smartcase = true; # Override the 'ignorecase' option if the search pattern contains upper
+      smartindent = true;
 
 
-        fileencoding = "utf-8"; # File-content encoding for the current buffer
+      wrap = false; # Prevent text from wrapping
 
-        swapfile = false; # Disable the swap file
-        undofile = true;
-        undolevels = 10000;
+      ignorecase = true;
+      incsearch = true;
+      wildmode = "longest:full,full";
 
-        foldlevel = 99; # Folds with a level higher than this number will be closed
-      };
 
-      clipboard.providers.wl-copy.enable = true;
-      extraConfigLua = ''
-        vim.opt.mouse=""
+      fileencoding = "utf-8"; # File-content encoding for the current buffer
 
-      '';
+      swapfile = false; # Disable the swap file
+      undofile = true;
+      undolevels = 10000;
+
+      foldlevel = 99; # Folds with a level higher than this number will be closed
+
+#       clipboard.providers.wl-copy.enable = true;
+#       extraConfigLua = ''
+#         vim.opt.mouse=""
+#       '';
     };
   };
 }

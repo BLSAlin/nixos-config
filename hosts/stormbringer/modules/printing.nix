@@ -2,6 +2,11 @@
 {
   services.printing = {
     enable = true;
-    drivers = [ pkgs.brlaser ];
+    drivers = with pkgs;
+    [
+      brlaser
+      brgenml1lpr
+      brgenml1cupswrapper
+    ];
   };
 }
