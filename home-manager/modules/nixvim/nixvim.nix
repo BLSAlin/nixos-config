@@ -6,8 +6,6 @@
     viAlias = true;
     vimAlias = true;
 
-    globals.mapleader = "<Space>";
-
     opts = {
       updatetime = 100;
       termguicolors = true; # Enables 24-bit RGB color in the |TUI|
