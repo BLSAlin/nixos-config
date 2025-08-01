@@ -6,6 +6,7 @@
     ./nixvim.nix
     ./autocommands.nix
     ./completion.nix
+    ./theme.nix
     ./plugins/bundle.nix
   ];
 }

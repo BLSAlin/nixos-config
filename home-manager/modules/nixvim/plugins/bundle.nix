@@ -7,6 +7,7 @@
     ./markdown-preview.nix
     ./neo-tree.nix
     ./startify.nix
+    ./telescope.nix
     ./treesitter.nix
     ./trim.nix
   ];

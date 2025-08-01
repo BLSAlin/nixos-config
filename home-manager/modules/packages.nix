@@ -4,6 +4,10 @@
   services.kdeconnect.enable = true;
 
   home.packages = with pkgs; [
+    # Gaming
+    gamescope
+    gamescope-wsi
+
     # Social
     discord
 
@@ -26,6 +30,7 @@
     jellyfin-media-player
     ptyxis
 
+    ripgrep
 
     # Fonts
     fira-code

@@ -9,9 +9,6 @@
     ./xone.nix
     ./smb-drive.nix
 
-    # Hardware fixes
-    ./amdgpu-hardware-fix.nix
-
     ./services/bundle.nix
   ];
 }

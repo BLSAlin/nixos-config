@@ -1,6 +1,8 @@
 {
   networking.networkmanager.enable = true;
 
+  networking.interfaces.enp10s0.wakeOnLan.enable = true;
+
   networking.firewall = {
     enable = true;
     allowedTCPPortRanges = [
