@@ -1,7 +1,12 @@
 {
   networking.networkmanager.enable = true;
 
-  networking.interfaces.enp10s0.wakeOnLan.enable = true;
+  networking.interfaces.enp10s0.wakeOnLan = {
+    enable = true;
+    policy = [
+      "magic"
+    ];
+  };
 
   networking.firewall = {
     enable = true;
