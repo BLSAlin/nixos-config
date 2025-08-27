@@ -28,10 +28,10 @@
       user = "alin";
       homeStateVersion = "25.05";
       hosts = [
-        { hostname = "stormbringer"; stateVersion = "25.05"; }
+        { hostname = "stormbringer"; stateVersion = "25.05"; system = "x86_64-linux"; }
       ];
 
-      makeSystem = {hostname, stateVersion}: nixpkgs.lib.nixosSystem {
+      makeSystem = {hostname, stateVersion, system}: nixpkgs.lib.nixosSystem {
         system = system;
         specialArgs = {
           pkgs-unstable = import nixpkgs-unstable {
@@ -52,7 +52,7 @@
       nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
         configs // {
           "${host.hostname}" = makeSystem {
-            inherit (host) hostname stateVersion;
+            inherit (host) hostname stateVersion system;
           };
         }) {} hosts;
 

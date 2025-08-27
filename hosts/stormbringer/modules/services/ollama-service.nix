@@ -7,7 +7,7 @@
     group = "ollama";
 
     package = pkgs.ollama-rocm.override {
-    	acceleration = "rocm";	
+    	acceleration = "rocm";
     };
   };
 

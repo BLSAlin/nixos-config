@@ -8,6 +8,7 @@
     ./printing.nix
     ./xone.nix
     ./smb-drive.nix
+    ./hyprland.nix
 
     ./services/bundle.nix
   ];
