@@ -1,86 +1,136 @@
 {
   description = "System configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.05";
-
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     agenix = {
       url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
+    };
+
+    darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, nixvim, agenix, ...}@inputs:
+  outputs = {nixpkgs, home-manager, firefox-addons, nixvim, agenix, darwin, ...}@inputs:
     let
       user = "alin";
-      homeStateVersion = "25.05";
-      hosts = [
+
+      linuxHosts = [
         { hostname = "stormbringer"; stateVersion = "25.05"; system = "x86_64-linux"; }
+      ];
+
+      darwinHosts = [
         { hostname = "mjolnnir"; stateVersion = "25.05"; system = "aarch64-darwin"; }
       ];
 
-      makeSystem = {hostname, stateVersion, system}: nixpkgs.lib.nixosSystem {
-        system = system;
-        specialArgs = {
-          pkgs-unstable = import nixpkgs-unstable {
-            system = system;
-            config.allowUnfree = true;
-          };
+      allHosts = linuxHosts // darwinHosts;
 
+
+      makeLinuxSystem = {hostname, stateVersion, system}: nixpkgs.lib.nixosSystem {
+        system = system;
+
+        specialArgs = {
           inherit inputs stateVersion hostname user;
         };
 
         modules = [
           ./configuration/hosts/${hostname}/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.${user} = ../home-manager/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs stateVersion user;
+
+              firefox-addons = firefox-addons.packages.${system};
+            };
+
+          }
+
           agenix.nixosModules.default
         ];
       };
 
-      makeHomeConfiguration = {hostname, stateVersion, system}: home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs-unstable.legacyPackages.${system};
-        extraSpecialArgs = {
-          inherit inputs homeStateVersion user;
 
-          pkgs-stable = import nixpkgs {
-            system = system;
-            config.allowUnfree = true;
-          };
-
-          firefox-addons = firefox-addons.packages.${system};
-        };
-
+      makeDarwinSystem = {hostname, stateVersion, system}: darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = inputs // { inherit user; };
         modules = [
-          ../home-manager/home.nix
+          home-manager.darwinModules.home-manager
+          # nix-homebrew.darwinModules.nix-homebrew
+          # {
+          #   nix-homebrew = {
+          #     inherit user;
+          #     enable = true;
+          #     taps = {
+          #       "homebrew/homebrew-core" = homebrew-core;
+          #       "homebrew/homebrew-cask" = homebrew-cask;
+          #       "homebrew/homebrew-bundle" = homebrew-bundle;
+          #     };
+          #     mutableTaps = false;
+          #     autoMigrate = true;
+          #   };
+          # }
+          ./hosts/${hostname}
         ];
       };
+      
+
+      # makeHomeConfiguration = {hostname, stateVersion, system}: home-manager.lib.homeManagerConfiguration {
+      #   pkgs = nixpkgs-unstable.legacyPackages.${system};
+      #   extraSpecialArgs = {
+      #     inherit inputs stateVersion user;
+
+      #     pkgs-stable = import nixpkgs {
+      #       system = system;
+      #       config.allowUnfree = true;
+      #     };
+
+      #     firefox-addons = firefox-addons.packages.${system};
+      #   };
+
+      #   modules = [
+      #     ../home-manager/home.nix
+      #   ];
+      # };
 
     in {
 
       nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
         configs // {
-          "${host.hostname}" = makeSystem {
+          "${host.hostname}" = makeLinuxSystem {
             inherit (host) hostname stateVersion system;
           };
-        }) {} hosts;
+        }) {} linuxHosts;
 
-      homeConfigurations.${user} = makeHomeConfiguration hosts;
+
+      darwinConfigurations = nixpkgs.lib.foldl' (configs: host:
+        configs // {
+          "${host.hostname}" = makeDarwinSystem {
+            inherit (host) hostname stateVersion system;
+          };
+        }) {} darwinHosts;
+
+      # homeConfigurations.${user} = makeHomeConfiguration linuxHosts;
     };
 }

@@ -1,5 +1,6 @@
 {
   imports = [
+    ./fish.nix
     ./git.nix
     ./packages.nix
     ./firefox.nix

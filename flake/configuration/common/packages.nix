@@ -28,7 +28,7 @@
     cifs-utils
 
     # Agenix
-    inputs.agenix.packages."${system}".default
+    # inputs.agenix.packages."${system}".default
   ];
 
   fonts.packages = with pkgs; [

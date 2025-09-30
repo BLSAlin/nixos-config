@@ -21,9 +21,6 @@
     wl-clipboard
     cliphist
 
-    # Other
-    home-manager
-
     # Libs
     rocmPackages.amdsmi
     rocmPackages.rocm-smi
