@@ -1,4 +1,4 @@
-{pkgs, pkgs-stable, ...}: {
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   services.kdeconnect.enable = true;
@@ -34,9 +34,8 @@
 
     # Fonts
     fira-code
-  ] ++ (with pkgs-stable; [
 
     # Others
     microsoft-edge
-  ]);
+  ];
 }
