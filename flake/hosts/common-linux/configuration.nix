@@ -6,7 +6,7 @@
 {
   imports =
     [
-        ./packages.nix
+        ../common/bundle.nix
         ./modules/bundle.nix
     ];
     
