@@ -30,11 +30,11 @@
 
   outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, nixvim, agenix, ...}@inputs:
     let
-      system = "x86_64-linux";
       user = "alin";
       homeStateVersion = "25.05";
       hosts = [
         { hostname = "stormbringer"; stateVersion = "25.05"; system = "x86_64-linux"; }
+        { hostname = "mjolnnir"; stateVersion = "25.05"; system = "aarch64-darwin"; }
       ];
 
       makeSystem = {hostname, stateVersion, system}: nixpkgs.lib.nixosSystem {
@@ -49,21 +49,12 @@
         };
 
         modules = [
-          ./hosts/${hostname}/configuration.nix
+          ./configuration/hosts/${hostname}/configuration.nix
           agenix.nixosModules.default
         ];
       };
 
-    in {
-
-      nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
-        configs // {
-          "${host.hostname}" = makeSystem {
-            inherit (host) hostname stateVersion system;
-          };
-        }) {} hosts;
-
-      homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
+      makeHomeConfiguration = {hostname, stateVersion, system}: home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs-unstable.legacyPackages.${system};
         extraSpecialArgs = {
           inherit inputs homeStateVersion user;
@@ -80,5 +71,16 @@
           ../home-manager/home.nix
         ];
       };
+
+    in {
+
+      nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
+        configs // {
+          "${host.hostname}" = makeSystem {
+            inherit (host) hostname stateVersion system;
+          };
+        }) {} hosts;
+
+      homeConfigurations.${user} = makeHomeConfiguration hosts;
     };
 }
