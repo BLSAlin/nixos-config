@@ -20,9 +20,15 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
+
   };
 
-  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, nixvim, ...}@inputs:
+  outputs = {nixpkgs, nixpkgs-unstable, home-manager, firefox-addons, nixvim, agenix, ...}@inputs:
     let
       system = "x86_64-linux";
       user = "alin";
@@ -44,6 +50,7 @@
 
         modules = [
           ./hosts/${hostname}/configuration.nix
+          agenix.nixosModules.default
         ];
       };
 

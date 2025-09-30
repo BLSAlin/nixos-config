@@ -17,7 +17,7 @@ in {
         "blsfam"
       ];
 
-      openssh.authorizedKeys.keys = keyAsString ../../../pub_keys/alin/key.pub;
+      openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/alin/key.pub;
     };
 
     groups.blsfam = {};

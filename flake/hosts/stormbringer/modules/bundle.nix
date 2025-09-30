@@ -1,7 +1,6 @@
 {
   imports = [
     ./sound.nix
-    ./users.nix
     ./networking.nix
     ./virtmanager.nix
     ./openssh.nix
