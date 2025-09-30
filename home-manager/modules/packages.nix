@@ -27,7 +27,7 @@
     brave
     spotify
     obs-studio
-    jellyfin-media-player
+    # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
     ptyxis
 
     ripgrep
