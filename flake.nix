@@ -76,7 +76,7 @@
           ./configuration/hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.users.${user} = ./home-manager/home.nix;
+            home-manager.users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
 
             home-manager.extraSpecialArgs = {
               inherit inputs stateVersion user;
