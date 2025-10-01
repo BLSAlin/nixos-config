@@ -1,11 +1,10 @@
 {stateVersion, ...}:
 {
     imports = [
-    ../../../modules/fish.nix
-    ../../../modules/git.nix
-    ../../../modules/packages.nix
-    ../../../modules/firefox.nix
-    ../../../modules/starship/starship.nix
+    ../../../modules/common/bundle.nix
+    ../../../modules/development-cli/bundle.nix
+    ../../../modules/graphical/bundle.nix
+    ../../../modules/gaming/bundle.nix
     ../../../modules/nixvim/bundle.nix
     ];
 

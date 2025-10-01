@@ -1,41 +1,23 @@
 {pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
-
   services.kdeconnect.enable = true;
 
   home.packages = with pkgs; [
-    # Gaming
-    gamescope
-    gamescope-wsi
-
-    # Social
-    discord
-
-    # Development
+    # Development tools
     vscode
     jetbrains.idea-ultimate
-    jdk17
     jetbrains.rider
-    dotnet-sdk_9
 
-    # Games
-    heroic
-    bottles
-    prismlauncher-unwrapped
-
-    # Others
-    brave
+    #Entertaiment
     spotify
-    obs-studio
     # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
+
+    # Utilities
+    obs-studio
     ptyxis
 
-    ripgrep
-
-    # Fonts
-    fira-code
-
-    # Others
+    # Browsers
     microsoft-edge
+    brave
   ];
 }
