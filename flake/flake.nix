@@ -29,9 +29,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+    };
+
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
+
   };
 
-  outputs = {nixpkgs, home-manager, firefox-addons, nixvim, agenix, darwin, ...}@inputs:
+  outputs = {nixpkgs, home-manager, firefox-addons, nixvim, agenix, darwin, nix-homebrew, ...}@inputs:
     let
       user = "alin";
 
@@ -77,42 +96,26 @@
         specialArgs = inputs // { inherit user; };
         modules = [
           home-manager.darwinModules.home-manager
-          # nix-homebrew.darwinModules.nix-homebrew
-          # {
-          #   nix-homebrew = {
-          #     inherit user;
-          #     enable = true;
-          #     taps = {
-          #       "homebrew/homebrew-core" = homebrew-core;
-          #       "homebrew/homebrew-cask" = homebrew-cask;
-          #       "homebrew/homebrew-bundle" = homebrew-bundle;
-          #     };
-          #     mutableTaps = false;
-          #     autoMigrate = true;
-          #   };
-          # }
+          nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              inherit user;
+              enable = true;
+
+              enableRosetta = true;
+
+              taps = {
+                "homebrew/homebrew-core" = inputs.homebrew-core;
+                "homebrew/homebrew-cask" = inputs.homebrew-cask;
+                "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+              };
+              mutableTaps = false;
+              autoMigrate = true;
+            };
+          }
           ./hosts/${hostname}
         ];
       };
-      
-
-      # makeHomeConfiguration = {hostname, stateVersion, system}: home-manager.lib.homeManagerConfiguration {
-      #   pkgs = nixpkgs-unstable.legacyPackages.${system};
-      #   extraSpecialArgs = {
-      #     inherit inputs stateVersion user;
-
-      #     pkgs-stable = import nixpkgs {
-      #       system = system;
-      #       config.allowUnfree = true;
-      #     };
-
-      #     firefox-addons = firefox-addons.packages.${system};
-      #   };
-
-      #   modules = [
-      #     ../home-manager/home.nix
-      #   ];
-      # };
 
     in {
 
@@ -130,7 +133,5 @@
             inherit (host) hostname stateVersion system;
           };
         }) {} darwinHosts;
-
-      # homeConfigurations.${user} = makeHomeConfiguration linuxHosts;
     };
 }
