@@ -1,0 +1,15 @@
+{stateVersion, ...}:
+{
+    imports = [
+    ../../../modules/common/bundle.nix
+    ../../../modules/development-cli/bundle.nix
+    ../../../modules/graphical/bundle.nix
+    ../../../modules/nixvim/bundle.nix
+    ];
+
+    home = {
+        username = "alin";
+        homeDirectory = "/home/blsalin";
+        stateVersion = stateVersion;
+    };
+}
