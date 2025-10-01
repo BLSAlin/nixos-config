@@ -9,7 +9,7 @@
 
     home = {
         username = "alin";
-        homeDirectory = "/home/blsalin";
+        homeDirectory = "/home/alin";
         stateVersion = stateVersion;
     };
 }

@@ -59,7 +59,7 @@
       ];
 
       darwinHosts = [
-        { hostname = "mjolnnir"; stateVersion = "25.05"; system = "aarch64-darwin"; }
+        { hostname = "mjolnnir"; stateVersion = 6; homeManagerStateVersion = "25.05"; system = "aarch64-darwin"; }
       ];
 
       allHosts = linuxHosts // darwinHosts;
@@ -91,11 +91,22 @@
       };
 
 
-      makeDarwinSystem = {hostname, stateVersion, system}: darwin.lib.darwinSystem {
-        inherit system;
+      makeDarwinSystem = {hostname, stateVersion, homeManagerStateVersion, system}: darwin.lib.darwinSystem {
+        inherit system stateVersion;
         specialArgs = inputs // { inherit user; };
         modules = [
           home-manager.darwinModules.home-manager
+          {
+            home-manager.users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
+
+            home-manager.extraSpecialArgs = {
+              inherit inputs user;
+              stateVersion = homeManagerStateVersion;
+
+              firefox-addons = firefox-addons.packages.${system};
+            };
+
+          }
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
@@ -113,7 +124,7 @@
               autoMigrate = true;
             };
           }
-          ./hosts/${hostname}
+          ./configuration/hosts/${hostname}/configuration.nix
         ];
       };
 
@@ -130,7 +141,7 @@
       darwinConfigurations = nixpkgs.lib.foldl' (configs: host:
         configs // {
           "${host.hostname}" = makeDarwinSystem {
-            inherit (host) hostname stateVersion system;
+            inherit (host) hostname stateVersion homeManagerStateVersion system;
           };
         }) {} darwinHosts;
     };

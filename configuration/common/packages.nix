@@ -2,14 +2,6 @@
   nixpkgs.config = {
     allowUnfree = true;
   };
-#   programs.firefox.enable = true;
-
-   programs.neovim = {
-     enable = true;
-     viAlias = true;
-     vimAlias = true;
-     defaultEditor = true;
-   };
 
   environment.systemPackages = with pkgs; [
     # Utilities
@@ -26,6 +18,8 @@
     htop
     bat
     cifs-utils
+
+    vim
 
     # Agenix
     # inputs.agenix.packages."${system}".default
