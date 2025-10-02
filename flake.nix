@@ -76,14 +76,14 @@
           ./configuration/hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
-            home-manager.users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
+            home-manager = {
+              users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
+              extraSpecialArgs = {
+                inherit inputs stateVersion user;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs stateVersion user;
-
-              firefox-addons = firefox-addons.packages.${system};
+                firefox-addons = firefox-addons.packages.${system};
+              };
             };
-
           }
 
           agenix.nixosModules.default
@@ -97,16 +97,17 @@
         modules = [
           home-manager.darwinModules.home-manager
           {
-            home-manager.users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
+            home-manager = {
+              users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
+              extraSpecialArgs = {
+                inherit inputs user;
+                stateVersion = homeManagerStateVersion;
 
-            home-manager.extraSpecialArgs = {
-              inherit inputs user;
-              stateVersion = homeManagerStateVersion;
-
-              firefox-addons = firefox-addons.packages.${system};
+                firefox-addons = firefox-addons.packages.${system};
+              };
             };
-
           }
+
           nix-homebrew.darwinModules.nix-homebrew
           {
             nix-homebrew = {
