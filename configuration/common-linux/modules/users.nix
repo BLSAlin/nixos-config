@@ -4,6 +4,7 @@ in {
   programs.fish.enable = true;
 
   users = {
+    isNormalUser = true;
     defaultUserShell = pkgs.fish;
 
     users.alin = {
