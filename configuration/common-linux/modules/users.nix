@@ -5,5 +5,16 @@ in {
 
   users = {
     defaultUserShell = pkgs.fish;
+
+    users.alin = {
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "input"
+        "libvirtd"
+        "blsfam"
+      ];
+    };
+    groups.blsfam = {};
   };
 }

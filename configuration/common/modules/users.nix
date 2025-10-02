@@ -5,18 +5,9 @@ in {
     users.alin = {
       isNormalUser = true;
       description = "Alin Andrei Balasa";
-      extraGroups = [
-        "networkmanager"
-        "wheel"
-        "input"
-        "libvirtd"
-        "blsfam"
-      ];
 
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/alin/key.pub;
     };
-
-    groups.blsfam = {};
 
   };
 }
