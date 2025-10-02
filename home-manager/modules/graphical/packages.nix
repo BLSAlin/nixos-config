@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
-  services.kdeconnect.enable = true;
+  services.kdeconnect.enable = if pkgs.stdenv.isLinux then true else false;
 
   home.packages = with pkgs; [
     # Development tools
