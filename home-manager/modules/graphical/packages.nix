@@ -1,23 +1,31 @@
-{pkgs, ...}: {
-  nixpkgs.config.allowUnfree = true;
-  services.kdeconnect.enable = if pkgs.stdenv.isLinux then true else false;
+{pkgs, ...}: let 
+    extraLinuxPackages = with pkgs; [
+      # Utilities
+      obs-studio
+      ptyxis
+    ];
 
-  home.packages = with pkgs; [
-    # Development tools
-    vscode
-    jetbrains.idea-ultimate
-    jetbrains.rider
+    extraDarwinPackages = with pkgs; [
 
-    #Entertaiment
-    spotify
-    # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
+    ];
 
-    # Utilities
-    obs-studio
-    ptyxis
+    extraPackages = if pkgs.stdenv.isLinux then extraLinuxPackages else extraDarwinPackages;
+  in {
+    nixpkgs.config.allowUnfree = true;
+    services.kdeconnect.enable = if pkgs.stdenv.isLinux then true else false;
 
-    # Browsers
-    microsoft-edge
-    brave
-  ];
+    home.packages = with pkgs; [
+      # Development tools
+      vscode
+      jetbrains.idea-ultimate
+      jetbrains.rider
+
+      #Entertaiment
+      spotify
+      # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
+
+      # Browsers
+      microsoft-edge
+      brave
+    ] ++ extraPackages;
 }
