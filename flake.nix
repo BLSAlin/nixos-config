@@ -93,7 +93,7 @@
 
       makeDarwinSystem = {hostname, stateVersion, homeManagerStateVersion, system}: darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = inputs // { inherit stateVersion user; };
+        specialArgs = inputs // { inherit hostname stateVersion user; };
         modules = [
           home-manager.darwinModules.home-manager
           {
