@@ -1,5 +1,5 @@
 {pkgs, lib, ...}: {
-    users.alin = {
+    users.users.alin = {
         home = /Users/alin;
     };
 }
