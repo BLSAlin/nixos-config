@@ -17,7 +17,6 @@
     btop
     htop
     bat
-    cifs-utils
 
     vim
 

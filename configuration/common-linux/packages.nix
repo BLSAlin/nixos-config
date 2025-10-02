@@ -5,4 +5,8 @@
      vimAlias = true;
      defaultEditor = true;
    };
+
+   environment.systemPackages = with pkgs; [
+    cifs-utils
+   ]
 }
