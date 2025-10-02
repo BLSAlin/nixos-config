@@ -28,5 +28,6 @@
       # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
 
       brave
+      ungoogled-chromium
     ] ++ extraPackages;
 }
