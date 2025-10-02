@@ -3,6 +3,9 @@
       # Utilities
       obs-studio
       ptyxis
+
+      # Browsers
+      microsoft-edge
     ];
 
     extraDarwinPackages = with pkgs; [
@@ -24,8 +27,6 @@
       spotify
       # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
 
-      # Browsers
-      microsoft-edge
       brave
     ] ++ extraPackages;
 }
