@@ -11,21 +11,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Bucharest";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_IE.UTF-8";
-    LC_IDENTIFICATION = "en_IE.UTF-8";
-    LC_MEASUREMENT = "en_IE.UTF-8";
-    LC_MONETARY = "en_IE.UTF-8";
-    LC_NAME = "en_IE.UTF-8";
-    LC_NUMERIC = "en_IE.UTF-8";
-    LC_PAPER = "en_IE.UTF-8";
-    LC_TELEPHONE = "en_IE.UTF-8";
-    LC_TIME = "en_IE.UTF-8";
-  };
-
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
