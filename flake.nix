@@ -8,11 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -50,7 +45,7 @@
 
   };
 
-  outputs = {nixpkgs, home-manager, firefox-addons, nixvim, agenix, darwin, nix-homebrew, ...}@inputs:
+  outputs = {nixpkgs, home-manager, nixvim, agenix, darwin, nix-homebrew, ...}@inputs:
     let
       user = "alin";
 
@@ -80,8 +75,6 @@
               users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
               extraSpecialArgs = {
                 inherit inputs stateVersion user;
-
-                firefox-addons = firefox-addons.packages.${system};
               };
             };
           }
@@ -102,8 +95,6 @@
               extraSpecialArgs = {
                 inherit inputs user;
                 stateVersion = homeManagerStateVersion;
-
-                firefox-addons = firefox-addons.packages.${system};
               };
             };
           }

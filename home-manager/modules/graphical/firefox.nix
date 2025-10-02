@@ -1,4 +1,4 @@
-{pkgs, firefox-addons, ...}: {
+{pkgs, ...}: {
   programs.firefox = {
     enable = true;
 
@@ -80,20 +80,20 @@
 #       Bitwarden
         "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
           installation_mode = "force_installed";
-          install_url = firefox-addons.bitwarden;
+          install_url = "https://addons.mozilla.org/firefox/downloads/file/4580978/bitwarden_password_manager-2025.9.0.xpi";
         };
 
 #       UBlock Origin
         "uBlock0@raymondhill.net" = {
           installation_mode = "force_installed";
-          install_url = firefox-addons.ublock-origin;
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
         };
 
 
 #       Return YouTube Dislikes
         "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
           installation_mode = "normal_installed";
-          install_url = firefox-addons.return-youtube-dislikes;
+          install_url = "https://addons.mozilla.org/firefox/downloads/file/4371820/return_youtube_dislikes-3.0.0.18.xpi";
         };
       };
 
