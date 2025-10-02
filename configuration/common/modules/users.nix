@@ -3,7 +3,6 @@
 in {
   users = {
     users.alin = {
-      isNormalUser = true;
       description = "Alin Andrei Balasa";
 
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/alin/key.pub;

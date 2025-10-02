@@ -7,6 +7,7 @@ in {
     defaultUserShell = pkgs.fish;
 
     users.alin = {
+      isNormalUser = true;
       extraGroups = [
         "networkmanager"
         "wheel"
