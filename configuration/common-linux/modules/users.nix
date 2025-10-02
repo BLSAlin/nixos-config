@@ -15,7 +15,7 @@ in {
         "libvirtd"
         "blsfam"
       ];
-      home = "/home/alin";
+      home = /home/alin;
     };
     groups.blsfam = {};
   };
