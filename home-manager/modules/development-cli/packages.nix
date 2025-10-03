@@ -6,6 +6,8 @@
     jdk17
     dotnet-sdk_9
 
+    git-credential-manager
+
     ripgrep
   ];
 }
