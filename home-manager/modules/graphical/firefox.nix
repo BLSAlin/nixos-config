@@ -76,25 +76,26 @@
         DefaultPrivate = "BLS Search";
       };
 
-      ExtensionsSettings = {
+      ExtensionSettings = {
+        # https://addons.mozilla.org/firefox/downloads/latest/ADDON_NAME/addon-ADDON_ACCOUNT_ID-latest.xpi
 #       Bitwarden
         "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
           installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/file/4580978/bitwarden_password_manager-2025.9.0.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/addon-12533945-latest.xpi";
           default_area = "menu_panel";
         };
 
 #       UBlock Origin
         "uBlock0@raymondhill.net" = {
           installation_mode = "force_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/file/4578681/ublock_origin-1.66.4.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/addon-11423598-latest.xpi";
         };
 
 
 #       Return YouTube Dislikes
         "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
           installation_mode = "normal_installed";
-          install_url = "https://addons.mozilla.org/firefox/downloads/file/4371820/return_youtube_dislikes-3.0.0.18.xpi";
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/addon-17129231-latest.xpi";
         };
       };
 

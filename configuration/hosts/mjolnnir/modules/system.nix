@@ -1,4 +1,4 @@
-{user, ...}: {
+{user, lib, pkgs, ...}: {
   system.primaryUser = user;
 
   system.defaults = {
@@ -9,8 +9,7 @@
       show-recents = false;
       expose-group-apps = true; # Group windows by application
       persistent-apps = [
-        "/System/Applications/Launchpad.app"
-        "/Applications/Safari.app"
+        (lib.concatStrings [(toString pkgs.firefox) "/Applications/Firefox.app"])
         "/System/Applications/Calendar.app"
         "/System/Applications/Mail.app"
       ];
