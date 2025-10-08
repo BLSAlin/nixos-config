@@ -6,10 +6,11 @@
 
       # Browsers
       microsoft-edge
+      ungoogled-chromium
     ];
 
     extraDarwinPackages = with pkgs; [
-
+      kitty
     ];
 
     extraPackages = if pkgs.stdenv.isLinux then extraLinuxPackages else extraDarwinPackages;
@@ -28,6 +29,5 @@
       # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
 
       brave
-      ungoogled-chromium
     ] ++ extraPackages;
 }

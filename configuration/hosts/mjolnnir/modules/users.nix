@@ -1,5 +1,12 @@
 {pkgs, lib, ...}: {
-    users.users.alin = {
-        home = "/Users/alin";
+    users.users = {
+        alin = {
+            uid = 501;
+            home = "/Users/alin";
+            shell = pkgs.fish;
+        };
     };
+    users.knownUsers = [
+        "alin"
+    ];
 }
