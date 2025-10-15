@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
       ../../common-linux/configuration.nix
       ./packages.nix
-      ./modules/bundle.nix
+      ./modules/default.nix
     ];
 
   # Bootloader.

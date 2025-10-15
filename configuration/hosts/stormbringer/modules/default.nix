@@ -8,6 +8,6 @@
     ./xone.nix
     ./smb-drive.nix
 
-    ./services/bundle.nix
+    ./services/default.nix
   ];
 }

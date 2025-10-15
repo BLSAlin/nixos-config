@@ -7,6 +7,6 @@
     ./autocommands.nix
     ./completion.nix
     ./theme.nix
-    ./plugins/bundle.nix
+    ./plugins/default.nix
   ];
 }

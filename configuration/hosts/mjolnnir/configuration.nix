@@ -1,7 +1,7 @@
 {stateVersion, user, ...}: {
 
   imports = [
-    ./modules/bundle.nix
+    ./modules/default.nix
     ../../common/configuration.nix
   ];
 

@@ -2,7 +2,7 @@
 {
   imports =
     [
-        ./modules/bundle.nix
+        ./modules/default.nix
         ./packages.nix
     ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
