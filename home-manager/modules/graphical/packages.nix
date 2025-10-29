@@ -1,4 +1,4 @@
-{pkgs, ...}: let 
+{pkgs, ...}: let
     extraLinuxPackages = with pkgs; [
       # Utilities
       obs-studio
@@ -27,6 +27,7 @@
       #Entertaiment
       spotify
       # jellyfin-media-player # Disabled because of CVE on qt5 qtwebengine
+      zotero
 
       brave
     ] ++ extraPackages;

@@ -1,10 +1,11 @@
 {stateVersion, ...}:
 {
     imports = [
-    ../../../modules/common/default.nix
-    ../../../modules/development-cli/default.nix
-    ../../../modules/graphical/default.nix
-    ../../../modules/nixvim/default.nix
+    ../../../modules/common
+    ../../../modules/brew
+    ../../../modules/development-cli
+    ../../../modules/graphical
+    ../../../modules/nixvim
     ];
 
     home = {
