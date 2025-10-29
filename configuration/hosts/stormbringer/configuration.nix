@@ -14,7 +14,7 @@
     ];
 
   # Bootloader.
-  boot.kernelPackages = pkgs.linuxPackages_6_16;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.

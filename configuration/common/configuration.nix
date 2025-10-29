@@ -6,6 +6,9 @@
         ./packages.nix
     ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.trusted-users = [
+    "@wheel"
+  ];
 
   networking.hostName = hostname; # Define your hostname.
 
@@ -20,4 +23,3 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = stateVersion; # Did you read the comment?
 }
-    

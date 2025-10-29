@@ -8,7 +8,6 @@
     extraPackages = with pkgs; [ kdePackages.breeze ];
   };
 
-
   hardware.amdgpu.opencl.enable = true;
 
   environment.systemPackages = with pkgs; [
