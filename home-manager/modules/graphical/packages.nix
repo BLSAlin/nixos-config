@@ -10,7 +10,7 @@
     ];
 
     extraDarwinPackages = with pkgs; [
-      kitty
+      
     ];
 
     extraPackages = if pkgs.stdenv.isLinux then extraLinuxPackages else extraDarwinPackages;

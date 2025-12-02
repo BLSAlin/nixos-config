@@ -1,8 +1,8 @@
 { homebrew, ... }: {
 
-  homebrew = {
-    casks = [
-      "microsoft-office"
-    ]
-  };
+  # homebrew = {
+  #   casks = [
+  #     "microsoft-office"
+  #   ];
+  # };
 }

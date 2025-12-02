@@ -1,4 +1,4 @@
-{stateVersion, user, ...}: {
+{pkgs, stateVersion, user, ...}: {
 
   imports = [
     ./modules/default.nix
@@ -15,4 +15,5 @@
   environment.variables = {
     EDITOR = "nvim";
   };
+
 }
