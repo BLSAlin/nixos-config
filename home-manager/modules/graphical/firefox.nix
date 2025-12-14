@@ -19,6 +19,8 @@
       SearchBar = "unified";
 
       Preferences = {
+        "browser.profiles.enabled" = "true";
+
         "extensions.pocket.enable" = "lock-false";
         "extensions.screenshots.disable" = "lock-true";
         "browser.formfill.enable" = "lock-false";

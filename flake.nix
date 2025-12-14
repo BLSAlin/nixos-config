@@ -64,7 +64,6 @@
 
       allHosts = linuxHosts // darwinHosts;
 
-
       makeLinuxSystem = {hostname, stateVersion, system}: nixpkgs.lib.nixosSystem {
         system = system;
 
