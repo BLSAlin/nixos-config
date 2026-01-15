@@ -1,4 +1,6 @@
 { services, ... }:
 {
-    services.openssh.settings.AcceptEnv = "WAYLAND_DISPLAY";
+    services.openssh.settings.AcceptEnv = [
+        "WAYLAND_DISPLAY"
+    ];
 }
