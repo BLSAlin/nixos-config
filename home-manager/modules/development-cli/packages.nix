@@ -3,7 +3,6 @@
 
   programs.direnv = {
     enable = true;
-    enableFishIntegration = true;
     nix-direnv.enable = true;
   };
 
@@ -16,5 +15,15 @@
     git-credential-manager
 
     ripgrep
+
+    ruby
+    ruby-lsp
+    gcc
+    gnumake
+    bazel
+    autoconf
+    coreutils
+    parallel
+    watchman
   ];
 }
