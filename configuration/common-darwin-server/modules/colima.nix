@@ -31,7 +31,7 @@ in
     serviceConfig = {
       Label = "org.nix-darwin.colima-orc";
       UserName = "orc";
-      GroupName = "staff";
+      GroupName = "servicegroup";
       RunAtLoad = true;
       KeepAlive = true;
       WorkingDirectory = colimaPath;

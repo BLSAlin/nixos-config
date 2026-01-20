@@ -8,12 +8,21 @@
   users = {
     users.orc = {
       uid = 499;
+      gid = 61;
       description = "Trusty docker worker account";
 
       home = orcHome;
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
+
+    groups = {
+      servicegroup = {
+        gid = 61;
+        description = "Group for service accounts.";
+        name = "Service Accounts Group";
+      };
+    }
 
   };
 
@@ -31,7 +40,7 @@
     fi
 
     # Ensure correct ownership
-    chown -R orc:staff "${orcHome}"
+    chown -R orc:servicegroup "${orcHome}"
     chmod 700 "${orcHome}"
 
     # Hide the user from the login screen and Users & Groups UI

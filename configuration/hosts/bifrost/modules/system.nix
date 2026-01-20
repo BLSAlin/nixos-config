@@ -2,8 +2,7 @@
   system.primaryUser = user;
 
   system.defaults = {
-    controlcenter.BatteryShowPercentage = true;
-
+    
     dock = {
       mru-spaces = false;
       show-recents = false;
