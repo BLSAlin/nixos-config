@@ -8,7 +8,7 @@
   users = {
     users.orc = {
       uid = 499;
-      gid = 61;
+      gid = 498;
       description = "Trusty docker worker account";
 
       home = orcHome;
@@ -18,7 +18,7 @@
 
     groups = {
       servicegroup = {
-        gid = 61;
+        gid = 498;
         description = "Group for service accounts.";
         name = "Service Accounts Group";
       };
