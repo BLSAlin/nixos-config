@@ -24,25 +24,26 @@
       "orc"
     ];
 
-    system.activationScripts.postActivation.text = ''
-      echo "Processing 'orc' service user setup..."
-      
-      # Create the home and working directory if they don't exist
-      if [ ! -d "${colimaDir}" ]; then
-        mkdir -p "${colimaDir}"
-        echo "Created ${colimaDir}"
-      fi
-
-      # Ensure correct ownership
-      chown -R orc:staff "${orcHome}"
-      chmod 700 "${orcHome}"
-
-      # Hide the user from the login screen and Users & Groups UI
-      dscl . create /Users/orc IsHidden 1
-      
-      # Hide the home folder from Finder to keep /Users clean
-      chflags hidden "${orcHome}"
-    '';
-
   };
+
+  system.activationScripts.postActivation.text = ''
+    echo "Processing 'orc' service user setup..."
+    
+    # Create the home and working directory if they don't exist
+    if [ ! -d "${colimaDir}" ]; then
+      mkdir -p "${colimaDir}"
+      echo "Created ${colimaDir}"
+    fi
+
+    # Ensure correct ownership
+    chown -R orc:staff "${orcHome}"
+    chmod 700 "${orcHome}"
+
+    # Hide the user from the login screen and Users & Groups UI
+    dscl . create /Users/orc IsHidden 1
+    
+    # Hide the home folder from Finder to keep /Users clean
+    chflags hidden "${orcHome}"
+  '';
+
 }
