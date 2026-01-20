@@ -62,6 +62,7 @@
 
       darwinHosts = [
         { hostname = "mjolnnir"; stateVersion = 6; homeManagerStateVersion = "25.05"; system = "aarch64-darwin"; }
+        { hostname = "bifrost"; stateVersion = 6; homeManagerStateVersion = "25.05"; system = "aarch64-darwin"; }
       ];
 
       allHosts = linuxHosts // darwinHosts;
