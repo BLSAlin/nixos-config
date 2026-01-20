@@ -10,8 +10,6 @@
       uid = 499;
       description = "Trusty docker worker account";
 
-      isNormalUser = true;
-
       home = orcHome;
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
