@@ -14,9 +14,11 @@ in {
         "input"
         "libvirtd"
         "blsfam"
+        "docker"
       ];
       home = "/home/alin";
     };
     groups.blsfam = {};
+    groups.docker = {};
   };
 }
