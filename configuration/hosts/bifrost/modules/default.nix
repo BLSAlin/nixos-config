@@ -4,6 +4,6 @@
     ./system.nix
     ./homebrew.nix
 
-    ./jellyfin-service.nix
+    ./docker.nix
   ];
 }
