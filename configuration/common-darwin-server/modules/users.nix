@@ -22,7 +22,7 @@
         description = "Group for service accounts.";
         name = "Service Accounts Group";
       };
-    }
+    };
 
   };
 
