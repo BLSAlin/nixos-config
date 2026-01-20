@@ -1,5 +1,6 @@
 {
   imports = [
-    ./docker.nix
+    ./users.nix
+    ./colima.nix
   ];
 }

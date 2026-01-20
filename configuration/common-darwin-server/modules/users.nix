@@ -3,6 +3,7 @@
 in {
   users = {
     users.orc = {
+      uid = 499;
       description = "Trusty docker worker account";
 
       isNormalUser = true;
@@ -10,13 +11,34 @@ in {
         "input"
       ];
 
-
+      home = "/Users/orc";
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
 
     users.knownUsers = [
       "orc"
     ];
+
+    system.activationScripts.postActivation.text = ''
+      echo "Processing 'orc' service user setup..."
+      
+      # Create the home and working directory if they don't exist
+      if [ ! -d "${orcConfigDir}" ]; then
+        mkdir -p "${orcConfigDir}"
+        echo "Created ${orcConfigDir}"
+      fi
+
+      # Ensure correct ownership
+      chown -R orc:staff "${orcHome}"
+      chmod 700 "${orcHome}"
+
+      # Hide the user from the login screen and Users & Groups UI
+      dscl . create /Users/orc IsHidden 1
+      
+      # Hide the home folder from Finder to keep /Users clean
+      chflags hidden "${orcHome}"
+    '';
 
   };
 }
