@@ -11,6 +11,6 @@
 
   environment.variables = {
     EDITOR = "nvim";
-  }
+  };
 
 }
