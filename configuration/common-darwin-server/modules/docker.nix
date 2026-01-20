@@ -9,7 +9,7 @@
     };
   };
 
-  users.extraGroups.docker.members = [
+  users.groups.docker.members = [
     user
     "orc"
   ];
