@@ -3,7 +3,7 @@ let
   colimaPath = "/Users/orc/colima";
 in
 {
-  environment.systemPackages = [
+  environment.systemPackages = with pkgs; [
     docker
     docker-compose
     
