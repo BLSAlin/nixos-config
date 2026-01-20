@@ -3,7 +3,5 @@
     ./users.nix
     ./system.nix
     ./homebrew.nix
-
-    ./docker.nix
   ];
 }
