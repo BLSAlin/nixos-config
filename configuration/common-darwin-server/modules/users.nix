@@ -1,6 +1,10 @@
 {pkgs, lib, ...}: let
   keyAsString = path: lib.splitString "\n" (builtins.readFile path);
-in {
+  
+  orcHome = "/Users/orc";
+  colimaDir = "/Users/orc/colima";
+
+  in {
   users = {
     users.orc = {
       uid = 499;
@@ -11,7 +15,7 @@ in {
         "input"
       ];
 
-      home = "/Users/orc";
+      home = orcHome;
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
@@ -24,9 +28,9 @@ in {
       echo "Processing 'orc' service user setup..."
       
       # Create the home and working directory if they don't exist
-      if [ ! -d "${orcConfigDir}" ]; then
-        mkdir -p "${orcConfigDir}"
-        echo "Created ${orcConfigDir}"
+      if [ ! -d "${colimaDir}" ]; then
+        mkdir -p "${colimaDir}"
+        echo "Created ${colimaDir}"
       fi
 
       # Ensure correct ownership
