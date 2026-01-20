@@ -13,7 +13,7 @@
     };
 
     treesitter-refactor = {
-      enable = true;
+      enable = false;
 
       settings = {
         highlight_definitions = {

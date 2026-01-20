@@ -55,7 +55,7 @@
 
     home.packages = with pkgs; [
       # Development tools
-      jetbrains.idea-ultimate
+      jetbrains.idea
       jetbrains.rider
 
       #Entertaiment
