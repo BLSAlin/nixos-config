@@ -5,6 +5,8 @@
       "microsoft-office"
       "rectangle"
       "ghostty"
+
+      "jellyfin"
     ];
   };
 }
