@@ -11,9 +11,6 @@
       description = "Trusty docker worker account";
 
       isNormalUser = true;
-      extraGroups = [
-        "input"
-      ];
 
       home = orcHome;
       shell = pkgs.fish;
