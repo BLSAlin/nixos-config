@@ -20,11 +20,11 @@
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
 
-    users.knownUsers = [
-      "orc"
-    ];
-
   };
+
+  users.knownUsers = [
+    "orc"
+  ];
 
   system.activationScripts.postActivation.text = ''
     echo "Processing 'orc' service user setup..."
