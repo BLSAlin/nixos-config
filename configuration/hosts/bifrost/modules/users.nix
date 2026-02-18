@@ -1,8 +1,8 @@
 {pkgs, lib, ...}: {
     users.users = {
-        alin = {
+        ${user} = {
             uid = 501;
-            home = "/Users/alin";
+            home = "/Users/${user}";
             shell = pkgs.fish;
         };
         andra = {
@@ -12,7 +12,7 @@
         };
     };
     users.knownUsers = [
-        "alin"
+        "${user}"
         "andra"
     ];
 }
