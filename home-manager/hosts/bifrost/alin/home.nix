@@ -1,4 +1,4 @@
-{stateVersion, ...}:
+{stateVersion, user, ...}:
 {
     imports = [
     ../../../modules/common
@@ -9,8 +9,8 @@
     ];
 
     home = {
-        username = "alin";
-        homeDirectory = "/Users/alin";
+        username = "${user}";
+        homeDirectory = "/Users/${user}";
         stateVersion = stateVersion;
     };
 }
