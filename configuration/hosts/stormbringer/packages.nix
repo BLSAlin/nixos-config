@@ -8,17 +8,16 @@
     extraPackages = with pkgs; [ kdePackages.breeze ];
   };
 
+  services.flatpak.enable = true;
+
   hardware.amdgpu.opencl.enable = true;
 
   environment.systemPackages = with pkgs; [
     kdePackages.kate
+    kdePackages.kcalc
+
     onlyoffice-desktopeditors
     vlc
-
-    # Wayland
-    xwayland
-    wl-clipboard
-    cliphist
 
     # Libs
     rocmPackages.amdsmi

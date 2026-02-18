@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: let
+{pkgs, lib, user, ...}: let
   keyAsString = path: lib.splitString "\n" (builtins.readFile path);
 in {
   programs.fish.enable = true;

@@ -13,7 +13,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_6_16;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
