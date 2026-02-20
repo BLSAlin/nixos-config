@@ -6,7 +6,6 @@ in
   # 1. Create the mount point directory
   system.activationScripts.postActivation.text = ''
     mkdir -p ${mountFolderOrc}
-    chown orc:servicegroup ${mountFolderOrc}
   '';
 
   # 2. Define the mount service
@@ -15,11 +14,18 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
       
-      # Unmount if already mounted to avoid 'Resource Busy' errors
-      /usr/sbin/diskutil unmount ${mountFolderOrc} || true
+      # Determine IDs dynamically if you don't want to hardcode
+      ORC_UID=$(id -u orc)
+      ORC_GID=$(id -g orc)
+
+      /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
-      # Mount the SMB share
-      /sbin/mount_smbfs -N "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
+      /sbin/mount_smbfs -N \
+        -u "$ORC_UID" \
+        -g "$ORC_GID" \
+        -f 0700 \
+        -d 0700 \
+        "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
     
     serviceConfig = {
