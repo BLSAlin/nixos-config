@@ -17,8 +17,7 @@
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
           --configdir "/Users/orc/.config/jellyfin" \
-          --logdir "/Users/orc/.config/jellyfin/log" \
-          --noninteractive
+          --logdir "/Users/orc/.config/jellyfin/log"
       '';
       serviceConfig = {
         Label = "org.nixos.jellyfin";
