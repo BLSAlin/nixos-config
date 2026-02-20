@@ -11,27 +11,24 @@
   };
 
   launchd.daemons.jellyfin = {
+      script = ''
+        # We use the full path to the internal binary of the Cask
+        exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
+          --datadir "/Users/orc/.config/jellyfin/data" \
+          --cachedir "/Users/orc/.cache/jellyfin" \
+          --configdir "/Users/orc/.config/jellyfin" \
+          --webdir" "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web \
+          --logdir "/Users/orc/.config/jellyfin/log"
+      '';
       serviceConfig = {
-      Label = "org.nixos.jellyfin";
-      UserName = "orc";
-      GroupName = "staff";
-      
-      ProgramArguments = [
-        "/Applications/Jellyfin.app/Contents/MacOS/jellyfin"
-        "--datadir" "/Users/orc/.config/jellyfin/data"
-        "--cachedir" "/Users/orc/.cache/jellyfin/cache"
-        "--configdir" "/Users/orc/.config/jellyfin/config"
-        "--logdir" "/Users/orc/.config/jellyfin/log"
-        # Point to the web client resources inside the App bundle
-        "--webdir" "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web"
-        "--noninteractive"
-      ];
-
-      RunAtLoad = true;
-      KeepAlive = true;
-      StandardOutPath = "/Users/orc/.config/jellyfin/log/stdout.log";
-      StandardErrorPath = "/Users/orc/.config/jellyfin/log/stderr.log";
-      ProcessType = "Background";
-    };
+        Label = "org.nixos.jellyfin";
+        # THIS IS THE KEY: It tells launchd to drop privileges to 'orc'
+        UserName = "orc";
+        RunAtLoad = true;
+        KeepAlive = true;
+        StandardOutPath = "/Users/orc/.config/jellyfin/log/stdout.log";
+        StandardErrorPath = "/Users/orc/.config/jellyfin/log/stderr.log";
+        ProcessType = "Background";
+      };
     };
 }
