@@ -17,7 +17,7 @@
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
           --configdir "/Users/orc/.config/jellyfin" \
-          --webdir" "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web \
+          --webdir "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web" \
           --logdir "/Users/orc/.config/jellyfin/log"
       '';
       serviceConfig = {
