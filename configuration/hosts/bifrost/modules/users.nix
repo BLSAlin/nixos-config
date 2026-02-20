@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: {
+{pkgs, lib, user, ...}: {
     users.users = {
         ${user} = {
             uid = 501;
