@@ -28,6 +28,7 @@
         KeepAlive = true;
         StandardOutPath = "/Users/orc/.config/jellyfin/log/stdout.log";
         StandardErrorPath = "/Users/orc/.config/jellyfin/log/stderr.log";
+        ProcessType = "Background";
       };
     };
 }
