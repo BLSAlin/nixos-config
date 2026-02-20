@@ -8,8 +8,9 @@
 
       "jellyfin"
     ];
+  };
 
-    launchd.daemons.jellyfin = {
+  launchd.daemons.jellyfin = {
       script = ''
         # We use the full path to the internal binary of the Cask
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
@@ -29,5 +30,4 @@
         StandardErrorPath = "/Users/orc/.config/jellyfin/log/stderr.log";
       };
     };
-  };
 }
