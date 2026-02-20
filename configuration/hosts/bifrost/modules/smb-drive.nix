@@ -25,6 +25,7 @@ in
         -g "$ORC_GID" \
         -f 0700 \
         -d 0700 \
+        -o noasync,nodev,nosuid,noatime,noappledouble,nolocalcaches \
         "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
     
