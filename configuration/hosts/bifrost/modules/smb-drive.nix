@@ -19,7 +19,7 @@ in
       /usr/sbin/diskutil unmount ${mountFolderOrc} || true
       
       # Mount the SMB share
-      /sbin/mount_smbfs -N "//10.69.100.11/big-data" ${mountFolderOrc}
+      /sbin/mount_smbfs -N "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
     
     serviceConfig = {
