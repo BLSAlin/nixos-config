@@ -29,5 +29,5 @@
         StandardErrorPath = "/Users/orc/.config/jellyfin/log/stderr.log";
       };
     };
-  }
+  };
 }
