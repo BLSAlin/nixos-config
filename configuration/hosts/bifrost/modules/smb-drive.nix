@@ -6,7 +6,7 @@ in
   # 1. Create the mount point directory
   system.activationScripts.postActivation.text = ''
     mkdir -p ${mountFolderOrc}
-    chown orc:staff ${mountFolderOrc}
+    chown orc:servicegroup ${mountFolderOrc}
   '';
 
   # 2. Define the mount service
