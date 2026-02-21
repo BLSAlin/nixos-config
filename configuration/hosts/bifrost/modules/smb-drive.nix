@@ -8,7 +8,7 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
       
-      mount volume "smb://$username:$password@10.69.100.11/big-data"
+      osascript -e 'mount volume "smb://$username:$password@10.69.100.11/big-data"'
     '';
     
     serviceConfig = {
