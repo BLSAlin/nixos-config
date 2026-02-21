@@ -10,7 +10,7 @@
     ];
   };
 
-  launchd.daemons.jellyfin = {
+  launchd.daemons.jellyfin-server = {
       script = ''
         # We use the full path to the internal binary of the Cask
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
@@ -21,7 +21,7 @@
           --logdir "/Users/orc/.config/jellyfin/log"
       '';
       serviceConfig = {
-        Label = "org.nixos.jellyfin";
+        Label = "dev.bls.jellyfin";
         # THIS IS THE KEY: It tells launchd to drop privileges to 'orc'
         UserName = "orc";
         RunAtLoad = true;
