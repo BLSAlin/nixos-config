@@ -12,9 +12,6 @@
 
   launchd.daemons.jellyfin-server = {
       script = ''
-        # We use the full path to the internal binary of the Cask
-        echo "Executing jellyfin server"
-
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
