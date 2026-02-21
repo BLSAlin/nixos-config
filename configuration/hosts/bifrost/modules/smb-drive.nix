@@ -8,10 +8,12 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
       
-      mount -t smbfs volume "smb://$username:$password@10.69.100.11/big-data"
+      mount -t smbfs -o nobrowse smb://$username:$password@10.69.100.11/big-data /Users/orc/storage
     '';
     
     serviceConfig = {
+      UserName = "orc";
+      GroupName = "servicegroup";
       Label = "org.nixos.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
