@@ -14,7 +14,7 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
 
-      /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
+      /usr/sbin/diskutil unmount ${mountFolderOrc} || true
       
       /sbin/mount -t smbfs \
         -o soft,noatime \
