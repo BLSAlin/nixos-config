@@ -16,7 +16,7 @@ in
 
       /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
-      /sbin/mount_smbfs -N \
+      /sbin/mount -t smbfs \
         -f 0700 \
         -d 0700 \
         -o soft,noatime \
