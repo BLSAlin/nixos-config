@@ -8,7 +8,7 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
       
-      mount -t smbfs -o nobrowse smb://$username:$password@10.69.100.11/big-data /Users/orc/storage
+      mount -t cifs -o nobrowse smb://$username:$password@10.69.100.11/big-data /Users/orc/storage
     '';
     
     serviceConfig = {
