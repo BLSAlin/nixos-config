@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let 
-  mountFolderOrc = "/Users/orc/storage";
+  
 in 
 {
   # 1. Create the mount point directory
@@ -13,12 +13,8 @@ in
     script = ''
       # Source the credentials
       source /Users/orc/.smb_credentials
-
-      /usr/sbin/diskutil unmount ${mountFolderOrc} || true
       
-      /sbin/mount -t smbfs \
-        -o soft,noatime \
-        "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
+      mount volume "smb://$username:$password@10.69.100.11/big-data"
     '';
     
     serviceConfig = {
