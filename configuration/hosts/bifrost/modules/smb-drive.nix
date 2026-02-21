@@ -19,7 +19,7 @@ in
       /sbin/mount_smbfs -N \
         -f 0700 \
         -d 0700 \
-        -o nodev,nosuid,noatime,noappledouble,nolocalcaches \
+        -o nodev,nosuid,noatime,nolocalcaches \
         "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
     
