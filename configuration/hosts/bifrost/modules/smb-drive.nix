@@ -17,8 +17,6 @@ in
       /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
       /sbin/mount -t smbfs \
-        -f 0700 \
-        -d 0700 \
         -o soft,noatime \
         "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
