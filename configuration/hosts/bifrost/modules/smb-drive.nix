@@ -8,12 +8,10 @@ in
       # Source the credentials
       source /Users/orc/.smb_credentials
       
-      osascript -e 'mount volume "smb://$username:$password@10.69.100.11/big-data"'
+      mount volume "smb://$username:$password@10.69.100.11/big-data"
     '';
     
     serviceConfig = {
-      UserName = "orc";
-      GroupName = "servicegroup";
       Label = "org.nixos.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
