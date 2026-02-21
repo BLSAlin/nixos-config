@@ -13,17 +13,13 @@ in
     script = ''
       # Source the credentials
       source /Users/orc/.smb_credentials
-      
-      # Determine IDs dynamically if you don't want to hardcode
-      ORC_UID=$(id -u orc)
-      ORC_GID=$(id -g servicegroup)
 
       /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
       /sbin/mount_smbfs -N \
         -f 0700 \
         -d 0700 \
-        -o noasync,nodev,nosuid,noatime,noappledouble,nolocalcaches \
+        -o nodev,nosuid,noatime,noappledouble,nolocalcaches \
         "//$username:$password@10.69.100.11/big-data" ${mountFolderOrc}
     '';
     
