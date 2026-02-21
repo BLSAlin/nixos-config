@@ -21,8 +21,6 @@ in
       /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
       /sbin/mount_smbfs -N \
-        -u "$ORC_UID" \
-        -g "$ORC_GID" \
         -f 0700 \
         -d 0700 \
         -o noasync,nodev,nosuid,noatime,noappledouble,nolocalcaches \
@@ -30,6 +28,8 @@ in
     '';
     
     serviceConfig = {
+      UserName = "orc";
+      GroupName = "servicegroup";
       Label = "org.nixos.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
