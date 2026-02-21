@@ -35,8 +35,8 @@ in
       KeepAlive = {
         NetworkState = true; # Only keep alive if network is up
       };
-      StandardOutPath = "/Users/orc/.config/jellyfin/log/mount.log";
-      StandardErrorPath = "/Users/orc/.config/jellyfin/log/mount_error.log";
+      StandardOutPath = "/Users/orc/.config/smb_drive/mount.log";
+      StandardErrorPath = "/Users/orc/.config/smb_drive/mount_error.log";
     };
   };
 }
