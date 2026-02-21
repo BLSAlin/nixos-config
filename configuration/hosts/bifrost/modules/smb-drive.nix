@@ -16,7 +16,7 @@ in
       
       # Determine IDs dynamically if you don't want to hardcode
       ORC_UID=$(id -u orc)
-      ORC_GID=$(id -g orc)
+      ORC_GID=$(id -g servicegroup)
 
       /usr/sbin/diskutil unmount ${mountFolderOrc}} || true
       
