@@ -16,7 +16,7 @@
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
-          --configdir "/Users/orc/.config/jellyfin" \
+          --configdir "/Users/orc/.config/jellyfin/config" \
           --webdir "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web" \
           --logdir "/Users/orc/.config/jellyfin/log"
       '';
