@@ -18,13 +18,12 @@
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
-          --configdir "/Users/orc/.config/jellyfin/config" \
+          --configdir "/Users/orc/.config/jellyfin/data/config" \
           --webdir "/Applications/Jellyfin.app/Contents/Resources/jellyfin-web" \
           --logdir "/Users/orc/.config/jellyfin/log"
       '';
       serviceConfig = {
         Label = "dev.bls.jellyfin";
-        # THIS IS THE KEY: It tells launchd to drop privileges to 'orc'
         UserName = "orc";
         RunAtLoad = true;
         KeepAlive = true;
