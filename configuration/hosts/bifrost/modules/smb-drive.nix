@@ -3,12 +3,6 @@ let
   
 in 
 {
-  # 1. Create the mount point directory
-  system.activationScripts.postActivation.text = ''
-    mkdir -p ${mountFolderOrc}
-  '';
-
-  # 2. Define the mount service
   launchd.daemons.mount-nas = {
     script = ''
       # Source the credentials
