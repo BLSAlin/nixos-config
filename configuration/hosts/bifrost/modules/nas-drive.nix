@@ -11,10 +11,12 @@ in
       echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
       mount_webdav https://copyparty.blsalin.dev/downloads ${driveMountPoint}
       echo "Succeded in mounting the WebDav share under ${driveMountPoint} as $(whoami)"
+
+      chmod 770 ${driveMountPoint}
+      echo "Changed folder permissions"
     '';
     
     serviceConfig = {
-      UserName = "orc";
       GroupName = "servicegroup";
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
