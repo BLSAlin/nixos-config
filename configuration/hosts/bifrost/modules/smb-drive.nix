@@ -12,11 +12,11 @@ in
       source ${credentialsFilePath}
       
       echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount -t smbfs -o nosuid,noatime,nobrowse,-d=777,-f775 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
-      chmod 777 ${driveMountPoint}
+      mount_smbfs -o nosuid,noatime,nobrowse -d=0777 -f0775 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
+      UserName = "orc";
       GroupName = "servicegroup";
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
