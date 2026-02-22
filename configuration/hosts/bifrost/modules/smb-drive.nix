@@ -1,18 +1,21 @@
 { config, pkgs, ... }:
 let 
-  
+  credentialsFilePath = "/Users/orc/.smb_credentials";
+  driveMountPoint = "/mnt/remoteBigData"
 in 
 {
   launchd.daemons.mount-nas = {
     script = ''
+      mkdir -p ${driveMountPoint}
+      chmod 777 ${driveMountPoint}
+
       # Source the credentials
-      source /Users/orc/.smb_credentials
+      source ${credentialsFilePath}
       
-      mount -t smbfs -o nobrowse smb://$username:$password@10.69.100.11/big-data /Users/orc/storage
+      mount -t smbfs -o noatime,nobrowse smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
-      UserName = "orc";
       GroupName = "servicegroup";
       Label = "org.nixos.mount-nas";
       RunAtLoad = true;
