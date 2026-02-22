@@ -1,21 +1,22 @@
 { config, pkgs, ... }:
 let 
   credentialsFilePath = "/Users/orc/.smb_credentials";
-  driveMountPoint = "/Volumes/remoteBigData";
+  driveMountPointBase = "/Users/orc";
+  driveMountPoint = "${driveMountPointBase}/remoteBigData";
 in 
 {
   launchd.daemons.mount-nas = {
     script = ''
       echo "Initial status of mount point"
-      ls -al /Volumes || true
+      ls -al ${driveMountPointBase} || true
 
       mkdir -p ${driveMountPoint}
       echo "Status of mount point after mkdir"
-      ls -al /Volumes || true
+      ls -al ${driveMountPointBase} || true
 
       chmod 776 ${driveMountPoint}
       echo "Status of mount point after chmod"
-      ls -al /Volumes || true
+      ls -al ${driveMountPointBase} || true
 
 
       # Source the credentials
