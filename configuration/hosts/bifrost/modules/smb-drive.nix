@@ -13,7 +13,7 @@ in
       source ${credentialsFilePath}
       
       echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount_smbfs -o nosuid,noatime,nobrowse -d=0777 -f0775 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
+      mount_smbfs -o nosuid,noatime,nobrowse -d0777 -f0775 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
