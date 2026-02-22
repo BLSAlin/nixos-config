@@ -8,6 +8,7 @@ in
     script = ''
       mkdir -p ${driveMountPoint}
 
+      echo "Attempting NAS mount"
       ${pkgs.rclone}/bin/rclone mount \
         :webdav,url="https://copyparty.local.blsalin.dev/downloads",vendor="other": ${driveMountPoint} \
         --vfs-cache-mode full \
@@ -15,6 +16,7 @@ in
         --dir-cache-time 1m \
         --allow-other \
         --daemon
+      echo "Succeeded in mounting NAS"
     '';
     
     serviceConfig = {
