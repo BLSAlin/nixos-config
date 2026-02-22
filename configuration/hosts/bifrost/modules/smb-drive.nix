@@ -7,15 +7,15 @@ in
   launchd.daemons.mount-nas = {
     script = ''
       echo "Initial status of mount point"
-      ls -al ${driveMountPoint} || true
+      ls -al /Volumes || true
 
       mkdir -p ${driveMountPoint}
       echo "Status of mount point after mkdir"
-      ls -al ${driveMountPoint} || true
+      ls -al /Volumes || true
 
       chmod 776 ${driveMountPoint}
       echo "Status of mount point after chmod"
-      ls -al ${driveMountPoint} || true
+      ls -al /Volumes || true
 
 
       # Source the credentials
