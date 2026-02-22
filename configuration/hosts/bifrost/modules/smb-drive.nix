@@ -18,7 +18,7 @@ in
     
     serviceConfig = {
       GroupName = "servicegroup";
-      Label = "org.nixos.mount-nas";
+      Label = "dev.bls.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
         NetworkState = true; # Only keep alive if network is up
