@@ -8,8 +8,6 @@ in
     script = ''
       mkdir -p ${driveMountPoint}
 
-      umount ${driveMountPoint} || true
-
       chmod 776 ${driveMountPoint}
       
       echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
