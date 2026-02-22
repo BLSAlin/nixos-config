@@ -7,8 +7,6 @@ in
   launchd.daemons.mount-nas = {
     script = ''
       mkdir -p ${driveMountPoint}
-
-      chmod 776 ${driveMountPoint}
       
       echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
       mount_webdav https://copyparty.blsalin.dev/downloads ${driveMountPoint}
