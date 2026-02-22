@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let 
   credentialsFilePath = "/Users/orc/.smb_credentials";
-  driveMountPoint = "/mnt/remoteBigData";
+  driveMountPoint = "/Volumes/remoteBigData";
 in 
 {
   launchd.daemons.mount-nas = {
