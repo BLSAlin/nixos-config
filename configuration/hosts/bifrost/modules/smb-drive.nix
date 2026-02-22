@@ -17,7 +17,6 @@ in
     '';
     
     serviceConfig = {
-      GroupName = "servicegroup";
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
