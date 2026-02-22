@@ -12,7 +12,7 @@ in
       # Source the credentials
       source ${credentialsFilePath}
       
-      echo "Attempting mounting the SMB share under ${driveMountPoint}"
+      echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
       umount ${driveMountPoint}
       mount -t smbfs -o nosuid,noatime,nobrowse,-d=777 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
