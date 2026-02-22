@@ -22,7 +22,7 @@ in
       source ${credentialsFilePath}
       
       echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount_smbfs -o nosuid,noatime,nobrowse -d777 -f776 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
+      mount_smbfs -o noatime,nobrowse -d777 -f776 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
