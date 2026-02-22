@@ -8,9 +8,13 @@ in
     script = ''
       mkdir -p ${driveMountPoint}
 
-      echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
-      mount_webdav -o nobrowse https://copyparty.local.blsalin.dev/downloads ${driveMountPoint}
-      echo "Succeded in mounting the WebDav share under ${driveMountPoint} as $(whoami)"
+      ${pkgs.rclone}/bin/rclone mount \
+        :webdav,url="https://copyparty.local.blsalin.dev/downloads",vendor="other": ${driveMountPoint} \
+        --vfs-cache-mode full \
+        --vfs-cache-max-size 5G \
+        --dir-cache-time 1m \
+        --allow-other \
+        --daemon
     '';
     
     serviceConfig = {
