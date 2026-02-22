@@ -1,29 +1,19 @@
 { config, pkgs, ... }:
 let 
-  credentialsFilePath = "/Users/orc/.smb_credentials";
   driveMountPointBase = "/Users/orc";
-  driveMountPoint = "${driveMountPointBase}/remoteBigData";
+  driveMountPoint = "${driveMountPointBase}/storage";
 in 
 {
   launchd.daemons.mount-nas = {
     script = ''
-      echo "Initial status of mount point"
-      ls -al ${driveMountPointBase} || true
-
       mkdir -p ${driveMountPoint}
-      echo "Status of mount point after mkdir"
-      ls -al ${driveMountPointBase} || true
+
+      umount ${driveMountPoint} || true
 
       chmod 776 ${driveMountPoint}
-      echo "Status of mount point after chmod"
-      ls -al ${driveMountPointBase} || true
-
-
-      # Source the credentials
-      source ${credentialsFilePath}
       
       echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount_smbfs -o noatime,nobrowse -d777 -f776 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
+      mount_smbfs -o noatime,nobrowse -d777 -f776 smb://copyparty.blsalin.dev/downloads ${driveMountPoint}
     '';
     
     serviceConfig = {
