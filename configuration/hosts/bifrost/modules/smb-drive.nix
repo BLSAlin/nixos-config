@@ -12,7 +12,7 @@ in
       # Source the credentials
       source ${credentialsFilePath}
       
-      mount -t smbfs -o noatime,nobrowse smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
+      mount -t smbfs -o noatime,nobrowse,-d=777 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
