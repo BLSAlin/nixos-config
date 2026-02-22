@@ -9,11 +9,8 @@ in
       mkdir -p ${driveMountPoint}
 
       echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
-      mount_webdav https://copyparty.local.blsalin.dev/downloads ${driveMountPoint}
+      mount_webdav -o nobrowse https://copyparty.local.blsalin.dev/downloads ${driveMountPoint}
       echo "Succeded in mounting the WebDav share under ${driveMountPoint} as $(whoami)"
-
-      chmod 770 ${driveMountPoint}
-      echo "Changed folder permissions"
     '';
     
     serviceConfig = {
