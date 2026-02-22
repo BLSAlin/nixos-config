@@ -1,4 +1,4 @@
-{pkgs, lib, ...}: let
+{pkgs, lib, user, ...}: let
   keyAsString = path: lib.splitString "\n" (builtins.readFile path);
   
   orcHome = "/Users/orc";
@@ -21,6 +21,7 @@
         gid = 499;
         description = "Group for service accounts.";
         name = "servicegroup";
+        members = ["orc", ${user}];
       };
     };
 
