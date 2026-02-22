@@ -7,13 +7,13 @@ in
   launchd.daemons.mount-nas = {
     script = ''
       mkdir -p ${driveMountPoint}
-      chmod 777 ${driveMountPoint}
+      chmod 776 ${driveMountPoint}
 
       # Source the credentials
       source ${credentialsFilePath}
       
       echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount_smbfs -o nosuid,noatime,nobrowse -d0777 -f0775 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
+      mount_smbfs -o nosuid,noatime,nobrowse -d0777 -f0776 smb://$username:$password@10.69.100.11/big-data ${driveMountPoint}
     '';
     
     serviceConfig = {
