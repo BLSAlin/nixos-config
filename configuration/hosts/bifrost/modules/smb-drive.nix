@@ -12,8 +12,8 @@ in
 
       chmod 776 ${driveMountPoint}
       
-      echo "Attempting mounting the SMB share under ${driveMountPoint} as $(whoami)"
-      mount_smbfs -o noatime,nobrowse -d777 -f776 smb://copyparty.blsalin.dev/downloads ${driveMountPoint}
+      echo "Attempting mounting the WebDav share under ${driveMountPoint} as $(whoami)"
+      mount_webdav https://copyparty.blsalin.dev/downloads ${driveMountPoint}
     '';
     
     serviceConfig = {
