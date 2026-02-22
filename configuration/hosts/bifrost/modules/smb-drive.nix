@@ -7,6 +7,7 @@ in
   launchd.daemons.mount-nas = {
     script = ''
       mkdir -p ${driveMountPoint}
+      chmod 777 ${driveMountPoint}
 
       # Source the credentials
       source ${credentialsFilePath}
@@ -16,7 +17,6 @@ in
     '';
     
     serviceConfig = {
-      UserName = "orc";
       GroupName = "servicegroup";
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
