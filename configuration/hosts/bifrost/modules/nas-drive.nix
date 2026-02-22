@@ -15,6 +15,8 @@ in
     '';
     
     serviceConfig = {
+      UserName = "orc";
+      GroupName = "servicegroup";
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
       KeepAlive = {
