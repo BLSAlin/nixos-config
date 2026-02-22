@@ -21,7 +21,10 @@
         gid = 499;
         description = "Group for service accounts.";
         name = "servicegroup";
-        members = ["orc" ${user}];
+        members = [
+          "orc"
+           "${user}"
+        ];
       };
     };
 
