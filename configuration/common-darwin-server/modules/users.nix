@@ -46,7 +46,7 @@ in {
 
     # Ensure correct ownership
     chown -R orc:servicegroup "${orcHome}"
-    chmod 700 "${orcHome}"
+    chmod 770 "${orcHome}"
 
     # Hide the user from the login screen and Users & Groups UI
     dscl . create /Users/orc IsHidden 1
