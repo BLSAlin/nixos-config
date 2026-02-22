@@ -4,7 +4,8 @@
   orcHome = "/Users/orc";
   colimaDir = "/Users/orc/colima";
 
-  in {
+in {
+
   users = {
     users.orc = {
       uid = 499;
@@ -23,7 +24,7 @@
         name = "servicegroup";
         members = [
           "orc"
-           "${user}"
+           "alin" # TODO remove hardcoded user
         ];
       };
     };
