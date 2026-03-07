@@ -3,6 +3,7 @@
       # Utilities
       obs-studio
       ptyxis
+      wl-clipboard
 
       # Browsers
       ungoogled-chromium
