@@ -25,8 +25,7 @@ in
         --dir-cache-time 1m \
         --allow-other \
         --uid 499 \
-        --gid 499 \
-        --fuse-flag user_allow_other
+        --gid 499
       echo "Succeeded in mounting NAS"
     '';
 
