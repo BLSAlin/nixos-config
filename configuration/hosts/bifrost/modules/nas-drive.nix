@@ -10,8 +10,8 @@ in
 
       echo "Attempting NAS mount"
       ${pkgs.rclone}/bin/rclone mount \
-        :webdav,url="https://copyparty.local.blsalin.dev/downloads",vendor="other": ${driveMountPoint} \
-        --vfs-cache-mode full \
+        ':webdav,url="https://copyparty.local.blsalin.dev/downloads",vendor="other":' ${driveMountPoint} \
+      --vfs-cache-mode full \
         --vfs-cache-max-size 5G \
         --dir-cache-time 1m \
         --allow-other \
