@@ -1,51 +1,30 @@
 {
-  programs.nixvim = {
+  programs.nixvim.plugins.blink-cmp = {
+    enable = true;
 
-    opts.completeopt = [
-      "menu"
-      "menuone"
-      "noselect"
-    ];
+    settings = {
+      keymap.preset = "default";
 
-    plugins = {
-      luasnip.enable = true;
+      appearance.nerd_font_variant = "mono";
 
-      lspkind = {
-        enable = true;
+      sources = {
+        default = [
+          "lsp"
+          "path"
+          "snippets"
+          "buffer"
+        ];
+      };
 
-        settings.cmp = {
-          enable = true;
-          menu = {
-            nvim_lsp = "[LSP]";
-            vim_lua = "[api]";
-            path = "[path]";
-            luasnip = "[snip]";
-            buffer = "[buffer]";
-            neorg = "[neorg]";
-          };
+      completion = {
+        menu.border = "rounded";
+        documentation = {
+          auto_show = true;
+          window.border = "rounded";
         };
       };
 
-      cmp = {
-        enable = true;
-        settings = {
-          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-
-          sources = [
-            { name = "path"; }
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            {
-              name = "buffer";
-              # Words from other open buffers can also be suggested.
-              option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
-            }
-            { name = "neorg"; }
-          ];
-        };
-
-      };
-
+      signature.enabled = true;
     };
   };
 }

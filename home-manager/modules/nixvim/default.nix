@@ -3,10 +3,13 @@
   imports = [
     inputs.nixvim.homeModules.nixvim
 
-    ./nixvim.nix
+    ./options.nix
+    ./keymaps.nix
     ./autocommands.nix
     ./completion.nix
+    ./lsp.nix
     ./theme.nix
+    ./statusline.nix
     ./plugins/default.nix
   ];
 }

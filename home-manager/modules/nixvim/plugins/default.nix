@@ -1,28 +1,20 @@
 {
   imports = [
-    ./barbar.nix
+    ./bufferline.nix
     ./comment.nix
     ./gitsigns.nix
-    ./lualine.nix
+    ./indent-blankline.nix
     ./markdown-preview.nix
     ./neo-tree.nix
-    ./startify.nix
+    ./surround.nix
     ./telescope.nix
+    ./toggleterm.nix
     ./treesitter.nix
     ./trim.nix
+    ./which-key.nix
   ];
 
-
-  programs.nixvim = {
-    plugins = {
-      lz-n.enable = true;
-      web-devicons.enable = true;
-      nvim-autopairs.enable = true;
-
-      oil = {
-        enable = true;
-        lazyLoad.settings.cmd = "Oil";
-      };
-    };
+  programs.nixvim.plugins = {
+    web-devicons.enable = true;
   };
 }
