@@ -1,6 +1,6 @@
 {pkgs, lib, user, ...}: let
   keyAsString = path: lib.splitString "\n" (builtins.readFile path);
-  
+
   orcHome = "/Users/orc";
   colimaDir = "/Users/orc/colima";
 
@@ -14,7 +14,6 @@ in {
 
       home = orcHome;
       shell = pkgs.fish;
-      extraGroups = [ "operator" ];
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
 
@@ -38,7 +37,7 @@ in {
 
   system.activationScripts.postActivation.text = ''
     echo "Processing 'orc' service user setup..."
-    
+
     # Create the home and working directory if they don't exist
     if [ ! -d "${colimaDir}" ]; then
       mkdir -p "${colimaDir}"
@@ -51,7 +50,7 @@ in {
 
     # Hide the user from the login screen and Users & Groups UI
     dscl . create /Users/orc IsHidden 1
-    
+
     # Hide the home folder from Finder to keep /Users clean
     chflags hidden "${orcHome}"
   '';
