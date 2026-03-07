@@ -14,6 +14,7 @@ in {
 
       home = orcHome;
       shell = pkgs.fish;
+      extraGroups = [ "operator" ];
       openssh.authorizedKeys.keys = keyAsString ../../../pub-keys/orc/key.pub;
     };
 

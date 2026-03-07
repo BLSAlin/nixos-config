@@ -21,7 +21,8 @@ in
         --vfs-cache-mode full \
         --vfs-cache-max-size 5G \
         --dir-cache-time 1m \
-        --allow-other
+        --allow-other \
+        --fuse-flag user_allow_other
       echo "Succeeded in mounting NAS"
     '';
     
