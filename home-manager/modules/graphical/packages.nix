@@ -5,7 +5,6 @@
       ptyxis
 
       # Browsers
-      microsoft-edge
       ungoogled-chromium
     ];
 

@@ -25,5 +25,7 @@
     coreutils
     parallel
     watchman
+
+    claude-code
   ];
 }
