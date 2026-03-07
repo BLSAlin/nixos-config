@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
-let 
+let
   driveMountPointBase = "/Users/orc";
   driveMountPoint = "${driveMountPointBase}/storage";
-in 
+in
 {
   launchd.daemons.mount-nas = {
     script = ''
       export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-      
+
       # Use environment variables for configuration to avoid parsing issues with the URL colon
       export RCLONE_CONFIG_MYNAS_TYPE=webdav
       export RCLONE_CONFIG_MYNAS_URL="https://copyparty.local.blsalin.dev/downloads"
@@ -16,7 +16,7 @@ in
       mkdir -p ${driveMountPoint}
 
       echo "Attempting NAS mount"
-      ${pkgs.rclone}/bin/rclone mount mynas: ${driveMountPoint} \
+      ${pkgs.rclone}/bin/rclone mount mynas:${driveMountPoint} \
         -vv \
         --vfs-cache-mode full \
         --vfs-cache-max-size 5G \
@@ -25,7 +25,7 @@ in
         --fuse-flag user_allow_other
       echo "Succeeded in mounting NAS"
     '';
-    
+
     serviceConfig = {
       UserName = "orc";
       GroupName = "servicegroup";
