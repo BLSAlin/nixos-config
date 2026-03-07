@@ -1,4 +1,8 @@
-{ ... }: {
+{ ... }:
+let
+  nasMountPoint = "/Users/orc/storage";
+in
+{
   homebrew = {
     enable = true;
     casks = [
@@ -14,6 +18,21 @@
 
   launchd.daemons.jellyfin-server = {
       script = ''
+        MOUNT_POINT="${nasMountPoint}"
+        MAX_WAIT=300
+        WAITED=0
+
+        echo "Waiting for NAS mount at $MOUNT_POINT..."
+        while ! timeout 5 ls "$MOUNT_POINT" >/dev/null 2>&1; do
+          WAITED=$((WAITED + 5))
+          if [ "$WAITED" -ge "$MAX_WAIT" ]; then
+            echo "NAS mount not available after ''${MAX_WAIT}s, starting Jellyfin anyway"
+            break
+          fi
+          sleep 5
+        done
+        echo "NAS mount ready (waited ''${WAITED}s)"
+
         exec /Applications/Jellyfin.app/Contents/MacOS/jellyfin \
           --datadir "/Users/orc/.config/jellyfin/data" \
           --cachedir "/Users/orc/.cache/jellyfin" \
