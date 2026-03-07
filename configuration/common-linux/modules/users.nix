@@ -1,12 +1,12 @@
 {pkgs, lib, user, ...}: let
-  keyAsString = path: lib.splitString "\n" (builtins.readFile path);
+ keyAsString = path: lib.splitString "\n" (builtins.readFile path);
 in {
   programs.fish.enable = true;
 
   users = {
     defaultUserShell = pkgs.fish;
 
-    users.alin = {
+    users.${user} = {
       isNormalUser = true;
       extraGroups = [
         "networkmanager"
@@ -14,9 +14,11 @@ in {
         "input"
         "libvirtd"
         "blsfam"
+        "docker"
       ];
-      home = "/home/alin";
+      home = "/home/${user}";
     };
     groups.blsfam = {};
+    groups.docker = {};
   };
 }

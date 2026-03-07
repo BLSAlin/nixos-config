@@ -4,12 +4,15 @@
     enable = true;
 
     daemon = {
-      ipv6 = true;
+      ipv6 = false;
       userland-proxy = false;
     };
   };
 
-  users.users.alin.extraGroups = [ "docker" ];
+  users.extraGroups.docker.members = [
+    user
+    "orc"
+  ];
 
   environment.systemPackages = with pkgs; [
     docker-compose

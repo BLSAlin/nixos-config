@@ -1,4 +1,4 @@
-{pkgs, pkgs-e6f23dc08d, ...}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     jellyfin
     jellyfin-web

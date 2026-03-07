@@ -8,8 +8,9 @@ Multi-host Nix flake configuration supporting NixOS (Linux) and nix-darwin (macO
 |---|---|---|---|
 | **stormbringer** | NixOS | x86_64-linux | Primary Linux desktop |
 | **mjolnnir** | nix-darwin | aarch64-darwin | macOS host (Homebrew integration) |
+| **bifrost** | nix-darwin | aarch64-darwin | M4 Mac Mini media server (Jellyfin, NAS mount via rclone/WebDAV) |
 
-Primary development happens on **stormbringer**. When making changes to shared modules (`common/`, `common-linux/`), verify they won't break **mjolnnir** or other hosts.
+Primary development happens on **stormbringer**. When making changes to shared modules (`common/`, `common-linux/`), verify they won't break **mjolnnir**, **bifrost**, or other hosts.
 
 ## Build Commands
 
@@ -19,6 +20,9 @@ sudo nixos-rebuild switch --flake .#stormbringer
 
 # macOS (mjolnnir)
 darwin-rebuild switch --flake .#mjolnnir
+
+# macOS server (bifrost) — deploy via SSH from stormbringer
+darwin-rebuild switch --flake .#bifrost
 
 # Update flake inputs
 nix flake update
@@ -32,6 +36,7 @@ configuration/
   common/                          # Settings shared across ALL hosts (Linux + macOS)
   common-linux/                    # Shared Linux settings (bootloader, locales, networking)
   common-linux-server/             # Linux server additions (e.g. Docker)
+  common-darwin-server/            # Shared darwin server settings (Colima, users)
   hosts/<hostname>/                # Host-specific system config
 home-manager/
   modules/
