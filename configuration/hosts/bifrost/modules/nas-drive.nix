@@ -16,7 +16,7 @@ in
       mkdir -p ${driveMountPoint}
 
       echo "Attempting NAS mount"
-      ${pkgs.rclone}/bin/rclone mount mynas:${driveMountPoint} \
+      ${pkgs.rclone}/bin/rclone mount mynas ${driveMountPoint} \
         -vv \
         --vfs-cache-mode full \
         --vfs-cache-max-size 5G \
