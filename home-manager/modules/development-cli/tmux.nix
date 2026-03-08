@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   programs.tmux = {
     enable = true;
-    shortcut = "a";
+    prefix = "C-Space";
     keyMode = "vi";
     mouse = true;
     baseIndex = 1;
