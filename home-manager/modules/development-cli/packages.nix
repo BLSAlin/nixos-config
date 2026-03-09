@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, inputs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   programs.direnv = {
@@ -27,5 +27,7 @@
     watchman
 
     claude-code
+
+    inputs.ticket.packages.${pkgs.system}.ticket
   ];
 }

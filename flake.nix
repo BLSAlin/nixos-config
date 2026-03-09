@@ -50,6 +50,16 @@
       flake = false;
     };
 
+    homebrew-steipete-tap = {
+      url = "github:steipete/homebrew-tap";
+      flake = false;
+    };
+
+    ticket = {
+      url = "github:BLSAlin/ticket/nix-flake-setup";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {nixpkgs, home-manager, nix-cachyos-kernel, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
