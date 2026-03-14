@@ -7,6 +7,7 @@
     ./printing.nix
     ./xone.nix
     ./smb-drive.nix
+    ./bluetooth.nix
 
     ./services/default.nix
   ];

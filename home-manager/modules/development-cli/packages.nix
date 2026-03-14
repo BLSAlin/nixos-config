@@ -28,6 +28,8 @@
 
     claude-code
 
-    inputs.ticket.packages.${pkgs.system}.ticket
+    inputs.ticket.packages.${pkgs.system}.default
+
+    librepods
   ];
 }

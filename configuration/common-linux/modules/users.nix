@@ -8,6 +8,7 @@ in {
 
     users.${user} = {
       isNormalUser = true;
+      uid = 1000;
       extraGroups = [
         "networkmanager"
         "wheel"
@@ -18,7 +19,7 @@ in {
       ];
       home = "/home/${user}";
     };
-    groups.blsfam = {};
+    groups.blsfam = { gid = 992; };
     groups.docker = {};
   };
 }

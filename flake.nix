@@ -60,6 +60,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    librepods = {
+      url = "github:Chrisbattarbee/librepods";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs = {nixpkgs, home-manager, nix-cachyos-kernel, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
@@ -101,6 +106,9 @@
             {
               nixpkgs.overlays = [
                 nix-cachyos-kernel.overlays.pinned
+                (final: prev: {
+                  librepods = inputs.librepods.packages.${final.system}.default;
+                })
               ];
             }
           )

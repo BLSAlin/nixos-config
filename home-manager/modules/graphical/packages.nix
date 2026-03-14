@@ -57,6 +57,7 @@
       # Development tools
       jetbrains.idea
       jetbrains.rider
+      android-studio
 
       #Entertaiment
       spotify
