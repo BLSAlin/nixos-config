@@ -2,11 +2,11 @@
   programs.tmux = {
     enable = true;
     prefix = "C-Space";
-    keyMode = "vi";
+    keyMode = "emacs";
     mouse = true;
     baseIndex = 1;
     clock24 = true;
-    historyLimit = 50000;
+    historyLimit = 100000;
     escapeTime = 0;
     newSession = true;
 
