@@ -5,6 +5,9 @@
     autoStart = true;
     capSysAdmin = true;
     openFirewall = true;
+    settings = {
+      output_name = "DP-2";
+    };
     applications = {
       apps = [
         {
