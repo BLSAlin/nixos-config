@@ -28,7 +28,7 @@
 
     claude-code
 
-    inputs.ticket.packages.${pkgs.system}.default
+    inputs.ticket.packages.${pkgs.system}.ticket
 
     librepods
   ];
