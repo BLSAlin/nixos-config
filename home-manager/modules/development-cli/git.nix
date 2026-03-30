@@ -1,4 +1,4 @@
-{
+{ pkgs, ... }: {
   programs.git = {
     enable = true;
 
@@ -11,8 +11,13 @@
       credential = {
         helper = "manager";
         "https://git.blsalin.dev".username = "BLSAlin";
-        credentialStore = "cache";
+        credentialStore = "secretservice";
       };
     };
   };
+
+  home.packages = with pkgs; [
+    gh
+    forgejo-cli
+  ];
 }

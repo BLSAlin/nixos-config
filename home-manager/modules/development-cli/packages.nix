@@ -27,6 +27,9 @@
     watchman
 
     claude-code
+    codex
+    python3
+    uv
 
     inputs.ticket.packages.${pkgs.system}.ticket
 

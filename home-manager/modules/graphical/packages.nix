@@ -7,6 +7,9 @@
 
       # Browsers
       ungoogled-chromium
+
+      # PhD
+      unityhub
     ];
 
     extraDarwinPackages = with pkgs; [
