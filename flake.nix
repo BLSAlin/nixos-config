@@ -53,6 +53,11 @@
       flake = false;
     };
 
+    ticket = {
+      url = "github:BLSAlin/ticket/nix-flake-setup";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
  };
 
   outputs = {nixpkgs, home-manager, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
