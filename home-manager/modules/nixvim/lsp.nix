@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   programs.nixvim = {
     plugins.lsp = {
@@ -76,7 +77,7 @@
 
         jdtls.enable = true;
 
-        csharp_ls.enable = true;
+        csharp_ls.enable = pkgs.stdenv.hostPlatform.system != "aarch64-darwin";
       };
     };
   };

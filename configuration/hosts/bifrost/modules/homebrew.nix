@@ -1,10 +1,13 @@
-{ ... }:
+{ pkgs, ... }:
 let
-  nasMountPoint = "/Users/orc/storage";
+  nasMountPoint = "/Volumes/nas";
 in
 {
   homebrew = {
     enable = true;
+    brews = [
+      "openclaw-cli"
+    ];
     casks = [
       "macfuse"
 
@@ -23,7 +26,7 @@ in
         WAITED=0
 
         echo "Waiting for NAS mount at $MOUNT_POINT..."
-        while ! timeout 5 ls "$MOUNT_POINT" >/dev/null 2>&1; do
+        while ! /usr/bin/find "$MOUNT_POINT" -maxdepth 0 -type d >/dev/null 2>&1; do
           WAITED=$((WAITED + 5))
           if [ "$WAITED" -ge "$MAX_WAIT" ]; then
             echo "NAS mount not available after ''${MAX_WAIT}s, starting Jellyfin anyway"
@@ -43,6 +46,7 @@ in
       serviceConfig = {
         Label = "dev.bls.jellyfin";
         UserName = "orc";
+        WorkingDirectory = "/Users/orc";
         RunAtLoad = true;
         KeepAlive = true;
         StandardOutPath = "/Users/orc/.config/jellyfin/log/stdout.log";

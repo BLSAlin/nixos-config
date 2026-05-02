@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
-  driveMountPointBase = "/Users/orc";
-  driveMountPoint = "${driveMountPointBase}/storage";
+  driveMountPoint = "/Volumes/nas";
   logDir = "/Users/orc/.config/smb_drive";
   rcloneConfig = pkgs.writeText "rclone.conf" ''
     [bls_pi_nas]
@@ -16,18 +15,33 @@ in
       export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
       RCLONE="${pkgs.rclone}/bin/rclone"
+      TIMEOUT="${pkgs.coreutils}/bin/timeout"
       MOUNT_POINT="${driveMountPoint}"
 
       cleanup() {
         echo "Cleaning up..."
         pkill -f "rclone mount bls_pi_nas: $MOUNT_POINT" 2>/dev/null || true
-        diskutil unmount force "$MOUNT_POINT" 2>/dev/null || true
+
+        # Wait for rclone to actually die and release the FUSE device
+        for i in $(seq 1 10); do
+          pgrep -f "rclone mount bls_pi_nas: $MOUNT_POINT" >/dev/null 2>&1 || break
+          echo "Waiting for rclone to exit... ($i/10)"
+          sleep 1
+        done
+
+        # Force kill if still alive
+        pkill -9 -f "rclone mount bls_pi_nas: $MOUNT_POINT" 2>/dev/null || true
+        sleep 1
+
+        # umount -f works for FUSE mounts; diskutil does not
+        umount -f "$MOUNT_POINT" 2>/dev/null || true
       }
 
       trap cleanup EXIT TERM INT
 
       # Clean up stale mounts/processes from previous runs
       cleanup
+      sleep 2
 
       mkdir -p "$MOUNT_POINT"
       mkdir -p ${logDir}
@@ -57,7 +71,7 @@ in
           exit 1
         fi
 
-        if ! timeout 10 stat "$MOUNT_POINT" >/dev/null 2>&1; then
+        if ! $TIMEOUT 10 stat "$MOUNT_POINT" >/dev/null 2>&1; then
           echo "Mount point unresponsive"
           exit 1
         fi
@@ -68,7 +82,7 @@ in
       Label = "dev.bls.mount-nas";
       RunAtLoad = true;
       KeepAlive = true;
-      ThrottleInterval = 30;
+      ThrottleInterval = 60;
       StandardOutPath = "${logDir}/mount.log";
       StandardErrorPath = "${logDir}/mount_error.log";
       ProcessType = "Background";

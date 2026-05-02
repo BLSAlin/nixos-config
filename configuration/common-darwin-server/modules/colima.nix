@@ -14,7 +14,9 @@ in
       # Isolate Colima state to the dedicated subfolder
       export HOME="${colimaPath}"
       export PATH="${pkgs.colima}/bin:${pkgs.docker}/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-      # Clean up existing socket if a crash occurred to ensure a clean start
+
+      # Clean up stale VM state from a previous crash to avoid disk lock errors
+      ${pkgs.colima}/bin/colima stop --force 2>/dev/null || true
       rm -rf "${colimaPath}/.colima/default/docker.sock"
 
       exec ${pkgs.colima}/bin/colima start --foreground \

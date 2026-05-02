@@ -17,6 +17,7 @@
     btop
     htop
     bat
+    tmux
 
     vim
 

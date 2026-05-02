@@ -58,6 +58,16 @@ scripts/                           # Helper scripts
 - **nixpkgs channel**: Uses `nixos-unstable`.
 - **Secrets**: Managed via `agenix` (age-encrypted, integrated as a NixOS module).
 
+## Deploying to bifrost
+
+bifrost is managed remotely from stormbringer. To deploy changes:
+
+1. Make changes locally in this repository on stormbringer.
+2. Push to remote (`git push`).
+3. SSH into bifrost: `ssh -i ~/.ssh/pi_key alin@10.69.100.144`
+4. Pull changes on bifrost: `cd /Users/alin/Projects/nixos-config && git pull`
+5. Apply the configuration: `sudo darwin-rebuild switch --flake .#bifrost`
+
 ## Flake Architecture
 
 - `specialArgs` propagates `inputs`, `stateVersion`, `hostname`, and `user` to all modules.

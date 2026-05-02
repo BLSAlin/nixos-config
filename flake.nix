@@ -53,17 +53,7 @@
       flake = false;
     };
 
-    ticket = {
-      url = "github:BLSAlin/ticket/nix-flake-setup";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    librepods = {
-      url = "github:Chrisbattarbee/librepods";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-  };
+ };
 
   outputs = {nixpkgs, home-manager, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
     let
@@ -145,6 +135,7 @@
                 "homebrew/homebrew-core" = inputs.homebrew-core;
                 "homebrew/homebrew-cask" = inputs.homebrew-cask;
                 "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+                "steipete/homebrew-tap" = inputs.homebrew-steipete-tap;
               };
               mutableTaps = false;
               autoMigrate = true;
