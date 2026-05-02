@@ -1,4 +1,4 @@
-{ pkgs, ...}: 
+{ pkgs, ...}:
 let
   colimaPath = "/Users/orc/colima";
 in
@@ -6,7 +6,6 @@ in
   environment.systemPackages = with pkgs; [
     docker
     docker-compose
-    
     colima
   ];
 
@@ -15,7 +14,6 @@ in
       # Isolate Colima state to the dedicated subfolder
       export HOME="${colimaPath}"
       export PATH="${pkgs.colima}/bin:${pkgs.docker}/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-      
       # Clean up existing socket if a crash occurred to ensure a clean start
       rm -rf "${colimaPath}/.colima/default/docker.sock"
 

@@ -59,8 +59,6 @@
     home.packages = with pkgs; [
       # Development tools
       jetbrains.idea
-      jetbrains.rider
-      android-studio
 
       #Entertaiment
       spotify

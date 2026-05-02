@@ -8,8 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
-
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,7 +65,7 @@
 
   };
 
-  outputs = {nixpkgs, home-manager, nix-cachyos-kernel, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
+  outputs = {nixpkgs, home-manager, nixvim, agenix, darwin, mac-app-util, nix-homebrew, ...}@inputs:
     let
       user = "alin";
 
@@ -90,6 +88,17 @@
         };
 
         modules = [
+          {
+            nixpkgs.overlays = [
+              (final: prev: {
+                openldap = prev.openldap.overrideAttrs {
+                  doCheck = false;
+                };
+              })
+            ];
+          }
+
+
           ./configuration/hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -100,19 +109,6 @@
               };
             };
           }
-
-          (
-            {pkgs, ...}:
-            {
-              nixpkgs.overlays = [
-                nix-cachyos-kernel.overlays.pinned
-                (final: prev: {
-                  librepods = inputs.librepods.packages.${final.system}.default;
-                })
-              ];
-            }
-          )
-
           agenix.nixosModules.default
         ];
       };
