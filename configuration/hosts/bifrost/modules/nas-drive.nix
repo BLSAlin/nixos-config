@@ -57,6 +57,7 @@ in
         --uid 499 \
         --gid 499 \
         --timeout 30s \
+        --log-level INFO \
         --contimeout 30s &
       RCLONE_PID=$!
 
