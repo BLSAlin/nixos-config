@@ -83,21 +83,11 @@
         };
 
         modules = [
-          {
-            nixpkgs.overlays = [
-              (final: prev: {
-                openldap = prev.openldap.overrideAttrs {
-                  doCheck = false;
-                };
-              })
-            ];
-          }
-
-
           ./configuration/hosts/${hostname}/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager = {
+              # useGlobalPkgs = true;
               users.${user} = ./home-manager/hosts/${hostname}/${user}/home.nix;
               extraSpecialArgs = {
                 inherit inputs stateVersion user;

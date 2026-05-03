@@ -11,7 +11,7 @@
 
     # Games
     heroic
-    bottles
+    # bottles
     prismlauncher-unwrapped
   ];
 }
