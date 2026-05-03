@@ -49,7 +49,6 @@ in
       echo "Starting NAS mount"
       $RCLONE mount bls_pi_nas: "$MOUNT_POINT" \
         --config ${rcloneConfig} \
-        -vv \
         --vfs-cache-mode full \
         --vfs-cache-max-size 5G \
         --dir-cache-time 1m \
