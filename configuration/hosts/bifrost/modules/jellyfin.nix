@@ -1,6 +1,9 @@
 {pkgs, ...}:
 let
     nasMountPoint = "/Volumes/nas";
+
+    serviceAccountUser = "orc";
+    serviceAccountUserHome = "/Users/${serviceAccountUser}";
 in {
   
   launchd.daemons.jellyfin-server = {
