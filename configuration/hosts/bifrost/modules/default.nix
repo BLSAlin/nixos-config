@@ -5,5 +5,6 @@
     ./homebrew.nix
     ./nas-drive.nix
     ./ollama.nix
+    ./jellyfin.nix
   ];
 }
