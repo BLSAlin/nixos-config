@@ -32,6 +32,10 @@
   fileSystems."/mnt/huge-data" =
     { device = "/dev/disk/by-uuid/bdb21cf8-b6c9-4ab6-938b-cb49d951aff5";
       fsType = "ext4";
+      options = [
+        "defaults"
+        "nofail"
+      ];
     };
 
   swapDevices =
