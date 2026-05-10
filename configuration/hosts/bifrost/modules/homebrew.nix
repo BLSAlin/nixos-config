@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   homebrew = {
     enable = true;
     casks = [
@@ -10,4 +11,5 @@
 
       "jellyfin"
     ];
+  };
 }
