@@ -9,8 +9,11 @@
       "rectangle"
       "ghostty"
 
-      "ffmpeg"
       "jellyfin"
+    ];
+
+    formulae = [
+      "ffmpeg"
     ];
   };
 }
