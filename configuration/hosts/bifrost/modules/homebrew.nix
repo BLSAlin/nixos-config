@@ -2,6 +2,7 @@
 {
   homebrew = {
     enable = true;
+    enableFishIntegration = true;
     casks = [
       "macfuse"
 
@@ -12,7 +13,7 @@
       "jellyfin"
     ];
 
-    formulae = [
+    brews = [
       "ffmpeg"
     ];
   };
