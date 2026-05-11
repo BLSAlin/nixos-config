@@ -9,6 +9,7 @@
       "rectangle"
       "ghostty"
 
+      "ffmpeg"
       "jellyfin"
     ];
   };
