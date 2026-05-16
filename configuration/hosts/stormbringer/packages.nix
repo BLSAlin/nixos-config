@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.config.rocmSupport = true;
 
   programs.steam = {
@@ -6,6 +7,9 @@
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
     extraPackages = with pkgs; [ kdePackages.breeze ];
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 
   services.flatpak.enable = true;

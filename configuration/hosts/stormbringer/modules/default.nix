@@ -8,6 +8,7 @@
     ./xone.nix
     ./smb-drive.nix
     ./bluetooth.nix
+    ./gaming.nix
 
     ./services/default.nix
   ];

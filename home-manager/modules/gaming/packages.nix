@@ -1,10 +1,9 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   nixpkgs.config.allowUnfree = true;
 
   home.packages = with pkgs; [
     # Gaming
-    gamescope
-    gamescope-wsi
 
     # Social
     discord
@@ -14,4 +13,6 @@
     # bottles
     prismlauncher-unwrapped
   ];
+
+  programs.gamescope.enable = true;
 }
