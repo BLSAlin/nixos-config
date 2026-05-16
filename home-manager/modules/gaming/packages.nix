@@ -14,5 +14,4 @@
     prismlauncher-unwrapped
   ];
 
-  programs.gamescope.enable = true;
 }
