@@ -8,9 +8,9 @@
 let
   cfg = config.bls.pkgs.helix;
   defaultEditor = config.bls.editor.default;
+  editorCommand = config.bls.editor.command;
   hasSessionVariables =
     builtins.hasAttr "environment" options && builtins.hasAttr "sessionVariables" options.environment;
-  editorCommand = if defaultEditor == "helix" then "hx" else defaultEditor;
 in
 {
   options.bls.pkgs.helix.enable = lib.mkOption {
