@@ -27,22 +27,24 @@ in
     ./abbrs.nix
   ];
 
-  programs.fish = {
-    enable = cfg.enable;
-    generateCompletions = lib.mkDefault true;
-    interactiveShellInit = lib.mkDefault ''
-      set fish_greeting
-      fish_default_key_bindings
-    '';
-  };
+  config = lib.mkMerge [
+    {
+      programs.fish = {
+        enable = cfg.enable;
+        generateCompletions = lib.mkDefault true;
+        interactiveShellInit = lib.mkDefault ''
+          set fish_greeting
+          fish_default_key_bindings
+        '';
+      };
+    }
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
+    (lib.mkIf cfg.enable (lib.mkMerge [
       (lib.mkIf pkgs.stdenv.isLinux {
         users.defaultUserShell = lib.mkDefault pkgs.fish;
       })
 
-      (lib.mkIf hasHomeManager {
+      (lib.optionalAttrs hasHomeManager {
         home-manager.users.${user} = {
           programs.fish = {
             enable = lib.mkDefault true;
@@ -81,6 +83,6 @@ in
           };
         };
       })
-    ]
-  );
+    ]))
+  ];
 }

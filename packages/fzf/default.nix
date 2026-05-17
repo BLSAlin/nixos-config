@@ -8,6 +8,9 @@
 let
   cfg = config.bls.pkgs.fzf;
   isFishEnabled = config.bls.pkgs.fish.enable;
+
+  hasHomeManager =
+    builtins.hasAttr "home-manager" options && builtins.hasAttr "users" options."home-manager";
 in
 {
   options.bls.pkgs.fzf.enable = lib.mkOption {
@@ -16,9 +19,13 @@ in
     description = "Enable preferred fzf configuration.";
   };
 
-  programs.fzf = {
-    enable = cfg.enable;
-    enableFishIntegration = isFishEnabled;
-    defaultOptions = lib.mkDefault [ "--layout=reverse" ];
+  config = lib.optionalAttrs hasHomeManager {
+    home-manager.users.${user} = {
+      programs.fzf = {
+        enable = cfg.enable;
+        enableFishIntegration = isFishEnabled;
+        defaultOptions = lib.mkDefault [ "--layout=reverse" ];
+      };
+    };
   };
 }
