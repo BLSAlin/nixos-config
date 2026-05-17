@@ -7,10 +7,11 @@
   ...
 }:
 let
+  packageSupport = import ../module-support.nix { inherit lib; };
+
   cfg = config.bls.pkgs.helix;
 
-  hasHomeManager =
-    builtins.hasAttr "home-manager" options && builtins.hasAttr "users" options."home-manager";
+  hasHomeManager = packageSupport.hasHomeManager options;
 in
 {
   config = lib.mkIf cfg.enable (

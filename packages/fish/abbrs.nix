@@ -6,14 +6,15 @@
   ...
 }:
 let
+  packageSupport = import ../module-support.nix { inherit lib; };
+
   pkgsConfig = config.bls.pkgs;
   cfg = pkgsConfig.fish;
   isGitEnabled = pkgsConfig.git.enable;
 
   flakeDir = config.bls.flakeDir;
 
-  hasHomeManager =
-    builtins.hasAttr "home-manager" options && builtins.hasAttr "users" options."home-manager";
+  hasHomeManager = packageSupport.hasHomeManager options;
 in
 {
   config = lib.mkMerge [
