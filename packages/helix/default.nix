@@ -3,28 +3,13 @@
   lib,
   options,
   pkgs,
-  user,
   ...
 }:
 let
   cfg = config.bls.pkgs.helix;
   defaultEditor = config.bls.editor.default;
-  helixSettings = {
-    theme = "ayu_evolve";
-  };
-  helixLanguages = {
-    language = [
-      {
-        name = "nix";
-        auto-format = true;
-        formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
-      }
-    ];
-  };
   hasSessionVariables =
     builtins.hasAttr "environment" options && builtins.hasAttr "sessionVariables" options.environment;
-  hasHomeManager =
-    builtins.hasAttr "home-manager" options && builtins.hasAttr "users" options."home-manager";
   editorCommand = if defaultEditor == "helix" then "hx" else defaultEditor;
 in
 {
@@ -34,6 +19,10 @@ in
     defaultText = lib.literalExpression ''config.bls.editor.default == "helix"'';
     description = "Enable preferred Helix editor configuration.";
   };
+
+  imports = [
+    ./home-manager.nix
+  ];
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
@@ -59,20 +48,6 @@ in
                 VISUAL = lib.mkOverride 900 editorCommand;
               };
             };
-      })
-
-      (lib.optionalAttrs hasHomeManager {
-        home-manager.users.${user}.programs.helix = {
-          enable = lib.mkDefault true;
-          settings = lib.mkDefault helixSettings;
-          languages.language = lib.mkDefault [
-            {
-              name = "nix";
-              auto-format = true;
-              formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
-            }
-          ];
-        };
       })
     ]
   );
