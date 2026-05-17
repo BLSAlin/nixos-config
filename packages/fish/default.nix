@@ -9,11 +9,22 @@
 let
   globalCfg = config.bls;
   flakeDir = config.bls.flakeDir;
+  defaultEditor = config.bls.editor.default;
+  editorCommand =
+    if defaultEditor == "helix" then
+      "hx"
+    else
+      defaultEditor;
 
   cfg = globalCfg.pkgs.fish;
 
   hasHomeManager =
     builtins.hasAttr "home-manager" options && builtins.hasAttr "users" options."home-manager";
+
+  hasFishGenerateCompletions =
+    builtins.hasAttr "programs" options
+    && builtins.hasAttr "fish" options.programs
+    && builtins.hasAttr "generateCompletions" options.programs.fish;
 in
 {
   options.bls.pkgs.fish.enable = lib.mkOption {
@@ -29,14 +40,17 @@ in
 
   config = lib.mkMerge [
     {
-      programs.fish = {
-        enable = cfg.enable;
-        generateCompletions = lib.mkDefault true;
-        interactiveShellInit = lib.mkDefault ''
-          set fish_greeting
-          fish_default_key_bindings
-        '';
-      };
+      programs.fish =
+        {
+          enable = cfg.enable;
+          interactiveShellInit = lib.mkDefault ''
+            set fish_greeting
+            fish_default_key_bindings
+          '';
+        }
+        // lib.optionalAttrs hasFishGenerateCompletions {
+          generateCompletions = lib.mkDefault true;
+        };
     }
 
     (lib.mkIf cfg.enable (lib.mkMerge [
@@ -78,8 +92,8 @@ in
           };
 
           home.sessionVariables = {
-            EDITOR = lib.mkDefault "nvim";
-            VISUAL = lib.mkDefault "nvim";
+            EDITOR = lib.mkDefault editorCommand;
+            VISUAL = lib.mkDefault editorCommand;
           };
         };
       })

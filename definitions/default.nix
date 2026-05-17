@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ./editor.nix
     ./shell.nix
   ];
 
