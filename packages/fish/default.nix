@@ -46,7 +46,7 @@ in
     (lib.mkIf cfg.enable (
       lib.mkMerge [
         (lib.mkIf pkgs.stdenv.isLinux {
-          users.defaultUserShell = lib.mkDefault pkgs.fish;
+          users.defaultUserShell = lib.mkOverride 900 pkgs.fish;
         })
       ]
     ))
