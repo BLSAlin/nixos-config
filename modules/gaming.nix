@@ -41,10 +41,18 @@ in
       sunshine.enable = cfg.profile == "full";
     };
 
+    nixpkgs.config.allowUnfree = true;
+
     environment.systemPackages = lib.mkIf enableNormal (
       with pkgs;
       [
         mangohud
+
+        discord
+
+        bottles
+        heroic
+        prismlauncher-unwrapped
       ]
     );
   };
