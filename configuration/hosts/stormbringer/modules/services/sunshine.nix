@@ -11,6 +11,10 @@
     applications = {
       apps = [
         {
+          name = "Desktop";
+          image-path = "desktop.png"; # Sunshine includes a default icon for this
+        }
+        {
           name = "Steam Big Picture";
           cmd = "xdg-open steam://open/bigpicture";
           auto-detach = "true";
