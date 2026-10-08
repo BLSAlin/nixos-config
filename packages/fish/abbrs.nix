@@ -11,6 +11,7 @@ let
   pkgsConfig = config.bls.pkgs;
   cfg = pkgsConfig.fish;
   isGitEnabled = pkgsConfig.git.enable;
+  isEzaAvailable = pkgsConfig.eza.enable;
 
   flakeDir = config.bls.flakeDir;
 
@@ -47,6 +48,13 @@ in
     (lib.mkIf hasHomeManager {
       programs.fish.shellAbbrs = {
         hms = "home-manager switch --flake ${flakeDir}";
+      };
+    })
+
+    (lib.mkIf isEzaAvailable {
+      programs.fish.shellAbbrs = {
+        ls = "eza --icons -group-directories-first";
+        ll = "eza --icons --group-directories-first -la";
       };
     })
   ];
