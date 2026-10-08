@@ -21,12 +21,19 @@ in
       enable = true;
       remotePlay.openFirewall = lib.mkDefault true;
       localNetworkGameTransfers.openFirewall = lib.mkDefault true;
-      extraPackages = lib.mkDefault (with pkgs; [
-        kdePackages.breeze
-      ]);
-      extraCompatPackages = lib.mkDefault (with pkgs; [
-        proton-ge-bin
-      ]);
+      # Upstream also contributes fonts; a mkDefault list would be discarded.
+      extraPackages = lib.mkBefore (
+        with pkgs;
+        [
+          kdePackages.breeze
+        ]
+      );
+      extraCompatPackages = lib.mkDefault (
+        with pkgs;
+        [
+          proton-ge-bin
+        ]
+      );
     };
   };
 }

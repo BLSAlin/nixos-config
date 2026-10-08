@@ -1,50 +1,47 @@
 {
   config,
   lib,
-  pkgs,
+  user,
   ...
 }:
-let
-  cfg = config.bls.pcUse;
-
-  browserPackages = {
-    firefox = pkgs.firefox;
-    chromium = pkgs.chromium;
-  };
-in
 {
   imports = [
-    ../packages/firefox
+    ../definitions
+    ../packages
   ];
-
   options.bls.pcUse = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable base packages for general PC use.";
-    };
-
+    enable = lib.mkEnableOption "general graphical applications";
     browser = lib.mkOption {
       type = lib.types.enum [
         "firefox"
         "chromium"
       ];
       default = "firefox";
-      description = "Browser to install for general PC use.";
+      description = "Preferred browser; existing companion browsers remain installed.";
     };
   };
-
-  config = lib.mkIf cfg.enable {
-    # TODO: Add desktop environment setup here once a desktop environment module exists.
-    bls.pkgs.firefox.enable = cfg.browser == "firefox";
-
-    nixpkgs.config.allowUnfree = true;
-
-    environment.systemPackages = [
-      browserPackages.${cfg.browser}
-      pkgs.spotify
-      pkgs.vlc
-      pkgs.ptyxis
-    ];
+  config = lib.mkIf config.bls.pcUse.enable {
+    bls.pkgs.firefox.enable = lib.mkDefault (config.bls.pcUse.browser == "firefox");
+    bls.pkgs.vscode.enable = lib.mkDefault true;
+    home-manager.users.${user} = { pkgs, ... }: {
+      nixpkgs.config.allowUnfree = true;
+      home.packages =
+        with pkgs;
+        lib.mkOrder 610 (
+          [
+            jetbrains.idea
+            spotify
+            brave
+          ]
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+            obs-studio
+            ptyxis
+            wl-clipboard
+            ungoogled-chromium
+            unityhub
+          ]
+          ++ lib.optional (config.bls.pcUse.browser == "chromium") chromium
+        );
+    };
   };
 }

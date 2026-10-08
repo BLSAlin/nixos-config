@@ -17,7 +17,7 @@ in
     lib.optionalAttrs hasHomeManager {
       home-manager.users.${user} =
         { pkgs, ... }:
-        lib.mkIf pkgs.stdenv.isLinux {
+        lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
           services.kdeconnect.enable = lib.mkDefault true;
         };
     }

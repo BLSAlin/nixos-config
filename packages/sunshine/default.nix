@@ -25,6 +25,10 @@ in
       applications = lib.mkDefault {
         apps = [
           {
+            name = "Desktop";
+            image-path = "desktop.png";
+          }
+          {
             name = "Steam Big Picture";
             cmd = "xdg-open steam://open/bigpicture";
             auto-detach = "true";

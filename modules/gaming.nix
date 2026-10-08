@@ -1,23 +1,24 @@
 {
   config,
   lib,
+  options,
   pkgs,
+  user,
   ...
 }:
 let
   cfg = config.bls.gaming;
-  enableLite = cfg.profile != "none";
-  enableNormal = lib.elem cfg.profile [
+  normal = lib.elem cfg.profile [
     "normal"
     "full"
   ];
+  support = import ../packages/module-support.nix { inherit lib; };
 in
 {
   imports = [
     ../definitions
     ../packages
   ];
-
   options.bls.gaming.profile = lib.mkOption {
     type = lib.types.enum [
       "none"
@@ -26,34 +27,30 @@ in
       "full"
     ];
     default = "none";
-    description = ''
-      Gaming package profile. None disables gaming packages, lite enables Steam
-      only, normal adds GameMode, Gamescope, and MangoHud, and full also enables
-      Sunshine.
-    '';
+    description = "None, Steam only, gaming applications, or gaming with Sunshine.";
   };
-
-  config = {
-    bls.pkgs = {
-      gamemode.enable = enableNormal;
-      gamescope.enable = enableNormal;
-      steam.enable = enableLite;
-      sunshine.enable = cfg.profile == "full";
-    };
-
-    nixpkgs.config.allowUnfree = true;
-
-    environment.systemPackages = lib.mkIf enableNormal (
-      with pkgs;
-      [
-        mangohud
-
-        discord
-
-        bottles
-        heroic
-        prismlauncher-unwrapped
-      ]
-    );
-  };
+  config = lib.mkIf pkgs.stdenv.hostPlatform.isLinux (
+    {
+      bls.pkgs = {
+        gamemode.enable = lib.mkDefault normal;
+        gamescope.enable = lib.mkDefault normal;
+        steam.enable = lib.mkDefault (cfg.profile != "none");
+        sunshine.enable = lib.mkDefault (cfg.profile == "full");
+      };
+    }
+    // lib.optionalAttrs (support.hasHomeManager options) {
+      home-manager.users.${user} = { pkgs, ... }: {
+        home.packages = lib.mkIf normal (
+          lib.mkOrder 600 (
+            with pkgs;
+            [
+              discord
+              heroic
+              prismlauncher-unwrapped
+            ]
+          )
+        );
+      };
+    }
+  );
 }

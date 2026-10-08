@@ -19,7 +19,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [
+    environment.systemPackages = lib.mkOrder 830 [
       pkgs.tmux
     ];
   };

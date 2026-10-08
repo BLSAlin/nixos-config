@@ -3,52 +3,21 @@
   lib,
   options,
   pkgs,
-  user,
   ...
 }:
-let
-  globalCfg = config.bls;
-  flakeDir = config.bls.flakeDir;
-
-  cfg = globalCfg.pkgs.fish;
-
-  hasFishGenerateCompletions =
-    builtins.hasAttr "programs" options
-    && builtins.hasAttr "fish" options.programs
-    && builtins.hasAttr "generateCompletions" options.programs.fish;
-in
 {
+  imports = [ ./home-manager.nix ];
   options.bls.pkgs.fish.enable = lib.mkOption {
     type = lib.types.bool;
     default = config.bls.shell.defaultShell == "fish";
-    defaultText = lib.literalExpression ''config.bls.shell.defaultShell == "fish"'';
-    description = "Enable preferred fish shell configuration.";
+    description = "Enable preferred fish configuration.";
   };
-
-  imports = [
-    ./abbrs.nix
-  ];
-
-  config = lib.mkMerge [
+  config = lib.mkIf config.bls.pkgs.fish.enable (
     {
-      programs.fish = {
-        enable = cfg.enable;
-        interactiveShellInit = lib.mkDefault ''
-          set fish_greeting
-          fish_default_key_bindings
-        '';
-      }
-      // lib.optionalAttrs hasFishGenerateCompletions {
-        generateCompletions = lib.mkDefault true;
-      };
+      programs.fish.enable = lib.mkDefault true;
     }
-
-    (lib.mkIf cfg.enable (
-      lib.mkMerge [
-        (lib.mkIf pkgs.stdenv.isLinux {
-          users.defaultUserShell = lib.mkOverride 900 pkgs.fish;
-        })
-      ]
-    ))
-  ];
+    // lib.optionalAttrs (lib.hasAttrByPath [ "users" "defaultUserShell" ] options) {
+      users.defaultUserShell = lib.mkOverride 900 pkgs.fish;
+    }
+  );
 }
