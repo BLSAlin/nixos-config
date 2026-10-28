@@ -1,6 +1,8 @@
 {
   config,
   lib,
+  options,
+  pkgs,
   user,
   ...
 }:
@@ -20,28 +22,38 @@
       description = "Preferred browser; existing companion browsers remain installed.";
     };
   };
-  config = lib.mkIf config.bls.pcUse.enable {
-    bls.pkgs.firefox.enable = lib.mkDefault (config.bls.pcUse.browser == "firefox");
-    bls.pkgs.vscode.enable = lib.mkDefault true;
-    home-manager.users.${user} = { pkgs, ... }: {
-      nixpkgs.config.allowUnfree = true;
-      home.packages =
+  config = lib.mkIf config.bls.pcUse.enable (
+    {
+      bls.pkgs.firefox.enable = lib.mkDefault (config.bls.pcUse.browser == "firefox");
+      bls.pkgs.vscode.enable = lib.mkDefault true;
+      home-manager.users.${user} = { pkgs, ... }: {
+        nixpkgs.config.allowUnfree = true;
+        home.packages =
+          with pkgs;
+          lib.mkOrder 610 (
+            [
+              jetbrains.idea
+              spotify
+              brave
+            ]
+            ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+              obs-studio
+              ptyxis
+              wl-clipboard
+              ungoogled-chromium
+              unityhub
+            ]
+            ++ lib.optional (config.bls.pcUse.browser == "chromium") chromium
+          );
+      };
+    }
+    // lib.optionalAttrs (lib.hasAttrByPath [ "boot" "kernelPackages" ] options) {
+      environment.systemPackages =
         with pkgs;
-        lib.mkOrder 610 (
-          [
-            jetbrains.idea
-            spotify
-            brave
-          ]
-          ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
-            obs-studio
-            ptyxis
-            wl-clipboard
-            ungoogled-chromium
-            unityhub
-          ]
-          ++ lib.optional (config.bls.pcUse.browser == "chromium") chromium
-        );
-    };
-  };
+        lib.mkOrder 851 [
+          onlyoffice-desktopeditors
+          vlc
+        ];
+    }
+  );
 }

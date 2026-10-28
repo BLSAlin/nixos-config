@@ -5,5 +5,6 @@
     ./pcUse.nix
     ./gaming.nix
     ./desktop.nix
+    ./printing.nix
   ];
 }

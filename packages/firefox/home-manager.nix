@@ -93,8 +93,8 @@ in
                     URLTemplate = "https://search.blsalin.dev/?q={searchTerms}";
                   }
                 ];
-                Default = "BLS Search";
-                DefaultPrivate = "BLS Search";
+                Default = "DuckDuckGo";
+                DefaultPrivate = "DuckDuckGo";
               };
 
               ExtensionSettings = {

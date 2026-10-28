@@ -38,6 +38,9 @@ in
         sunshine.enable = lib.mkDefault (cfg.profile == "full");
       };
     }
+    // lib.optionalAttrs (lib.hasAttrByPath [ "hardware" "xone" "enable" ] options) {
+      hardware.xone.enable = lib.mkDefault normal;
+    }
     // lib.optionalAttrs (support.hasHomeManager options) {
       home-manager.users.${user} = { pkgs, ... }: {
         home.packages = lib.mkIf normal (

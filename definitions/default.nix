@@ -3,6 +3,7 @@
   imports = [
     ./editor.nix
     ./shell.nix
+    ./virtualization.nix
   ];
 
   options.bls.flakeDir = lib.mkOption {

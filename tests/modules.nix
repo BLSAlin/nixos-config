@@ -100,6 +100,22 @@ let
         }
       ];
     };
+  printing = make {
+    extra = [
+      ../modules/printing.nix
+      {
+        bls.printing = {
+          enable = true;
+          drivers = [
+            "brother"
+            "hp"
+            "epson"
+            "hp"
+          ];
+        };
+      }
+    ];
+  };
   overridden = make {
     hm = true;
     extra = [
@@ -132,6 +148,17 @@ let
   };
   checks = {
     syntheticFish = synthetic.config.programs.fish.enable;
+    kdeConnectFirewall =
+      let
+        portRange = {
+          from = 1714;
+          to = 1764;
+        };
+      in
+      lib.elem portRange linux.networking.firewall.allowedTCPPortRanges
+      && lib.elem portRange linux.networking.firewall.allowedUDPPortRanges
+      && !(lib.elem portRange disabled.networking.firewall.allowedTCPPortRanges)
+      && !(lib.elem portRange disabled.networking.firewall.allowedUDPPortRanges);
     plainLinux =
       linux.programs.fish.enable && linux.programs.steam.enable && linux.services.sunshine.enable;
     plainDarwin = darwin.programs.fish.enable && !(darwin ? home-manager);
@@ -160,6 +187,20 @@ let
       && (profile "normal").programs.gamescope.enable
       && !(profile "normal").services.sunshine.enable;
     gamingFull = (profile "full").services.sunshine.enable;
+    gamingXone =
+      !(profile "none").hardware.xone.enable
+      && !(profile "lite").hardware.xone.enable
+      && (profile "normal").hardware.xone.enable
+      && (profile "full").hardware.xone.enable;
+    printingDrivers =
+      printing.services.printing.enable
+      && map lib.getName printing.services.printing.drivers == [
+        "brlaser"
+        "brgenml1lpr"
+        "brgenml1cupswrapper"
+        "hplip"
+        "epson-escpr"
+      ];
     firefox = (h (browser "firefox")).programs.firefox.enable;
     chromium = !(h (browser "chromium")).programs.firefox.enable;
     hostOverrides =

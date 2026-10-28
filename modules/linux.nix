@@ -26,6 +26,24 @@
 
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
+  networking.networkmanager.enable = lib.mkDefault true;
+  networking.firewall.enable = lib.mkDefault true;
+  networking.interfaces = lib.mkIf (hostname == "stormbringer") {
+    enp10s0.wakeOnLan = {
+      enable = true;
+      policy = [ "magic" ];
+    };
+  };
+
+  services.avahi = {
+    enable = lib.mkDefault true;
+    nssmdns4 = lib.mkDefault true;
+    publish = {
+      enable = lib.mkDefault true;
+      addresses = lib.mkDefault true;
+    };
+  };
+
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Select internationalisation properties.

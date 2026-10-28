@@ -2,6 +2,7 @@
   config,
   lib,
   options,
+  pkgs,
   ...
 }:
 {
@@ -18,6 +19,16 @@
   };
   config = lib.optionalAttrs (lib.hasAttrByPath [ "boot" "kernelPackages" ] options) (
     lib.mkIf config.bls.desktop.enable {
+      environment.systemPackages = lib.mkOrder 850 (
+        lib.optionals (config.bls.desktop.environment == "plasma") (
+          with pkgs;
+          [
+            kdePackages.kate
+            kdePackages.kcalc
+          ]
+        )
+      );
+      services.flatpak.enable = lib.mkDefault true;
       services.xserver.enable = lib.mkDefault false;
       services.displayManager.sddm.enable = lib.mkDefault (config.bls.desktop.environment == "plasma");
       services.desktopManager.plasma6.enable = lib.mkDefault (config.bls.desktop.environment == "plasma");

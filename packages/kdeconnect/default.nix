@@ -1,10 +1,13 @@
 {
   config,
   lib,
+  options,
+  pkgs,
   ...
 }:
 let
   cfg = config.bls.pkgs.kdeconnect;
+  hasFirewall = lib.hasAttrByPath [ "networking" "firewall" "allowedTCPPortRanges" ] options;
 in
 {
   imports = [
@@ -17,5 +20,22 @@ in
     description = "Enable preferred KDE Connect configuration.";
   };
 
-  config = lib.mkIf cfg.enable { };
+  config = lib.optionalAttrs hasFirewall (
+    lib.mkIf (cfg.enable && pkgs.stdenv.hostPlatform.isLinux) {
+      networking.firewall = {
+        allowedTCPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          }
+        ];
+        allowedUDPPortRanges = [
+          {
+            from = 1714;
+            to = 1764;
+          }
+        ];
+      };
+    }
+  );
 }

@@ -33,12 +33,15 @@ importing modules is not a passive declaration-only operation.
 | direnv | true | Home Manager only, including nix-direnv |
 | firefox | false | Home Manager policies, search engines, extensions |
 | vscode | false | Home Manager |
-| kdeconnect | true | Home Manager service on Linux only |
+| kdeconnect | true | Home Manager service and firewall port ranges on Linux only |
+| openssh | true | Linux OpenSSH accepts `WAYLAND_DISPLAY` from clients |
 | steam | true | Native Linux module, firewall rules, Breeze, Proton-GE |
 | sunshine | true | Native Linux service, Desktop and Steam Big Picture entries |
 | gamemode | false | Native Linux module |
 | gamescope | false | Native Linux module |
 | eza | false | Optional user package and fish ls/ll abbreviations |
+| DSLR camera | false | Linux v4l2loopback webcam service, gphoto2/ffmpeg, USB start rule |
+| AMD GPU | false | Linux AMD OpenCL and ROCm system tools |
 
 `bls.shell.defaultShell` is fish. `bls.editor.default` is Helix;
 `bls.editor.choices.helix.command` is `hx`. Helix sets user EDITOR/VISUAL;
@@ -55,11 +58,20 @@ not enabled. Eza's integration is retained, corrected, and disabled by default.
 - `bls.development.enable`: existing user development inventory, including ticket.
 - `bls.pcUse.enable`: graphical user inventory and VS Code;
   `bls.pcUse.browser` selects Firefox or Chromium. Existing companion browsers
-  remain installed. Linux-only applications remain platform-guarded.
-- `bls.desktop.enable`: Linux display, sound, and Bluetooth services;
-  `bls.desktop.environment` defaults to plasma and also supports gnome.
+  remain installed. Linux-only applications remain platform-guarded; OnlyOffice
+  and VLC are system packages on Linux.
+- `bls.desktop.enable`: Linux display, sound, Bluetooth, and Flatpak services;
+  `bls.desktop.environment` defaults to plasma and also supports gnome. Plasma
+  adds Kate and KCalc as system packages.
+- `bls.printing.enable`: CUPS printing on Linux; `bls.printing.drivers` accepts
+  multiple driver families. `brother` installs brlaser, brgenml1lpr, and
+  brgenml1cupswrapper; `hp` installs HPLIP; `epson` installs Epson ESC/P-R.
+  Stormbringer selects `brother`.
+- `bls.virtualization.enabled`: Linux libvirtd and virt-manager; disabled by
+  default and enabled on Stormbringer.
 - `bls.gaming.profile`: none disables gaming defaults on Linux; lite enables
-  Steam; normal adds GameMode, Gamescope, Discord, Heroic, and Prism Launcher;
+  Steam; normal adds GameMode, Gamescope, Xone controller support, Discord,
+  Heroic, and Prism Launcher;
   full also enables Sunshine. It does not add Bottles or MangoHud.
 
 All current hosts select development and graphical use. Stormbringer selects
@@ -69,6 +81,14 @@ individual package modules also evaluate without it.
 Breeze and KDE Connect keep their historical defaults even when selecting a
 different desktop. Native options can override them; introducing automatic
 desktop-dependent behavior is a separate choice.
+
+The shared Linux module enables NetworkManager, the firewall, and Avahi.
+It also retains Stormbringer's interface-specific Wake-on-LAN setting behind a
+hostname guard.
+
+The DSLR camera module lives in `packages/hardware/dslr-camera.nix` and is
+enabled only on Stormbringer. Its `bls.pkgs.hardware.dslrCamera.videoDevice`
+defaults to `/dev/video0`; hosts set the four-digit USB vendor and product IDs.
 
 ## Merge and ordering rules
 
@@ -83,8 +103,8 @@ and generated profile identities despite moving definitions between modules:
 - User packages: gaming 600, graphical 610, Git companions 620, runtimes 630,
   credential manager 635, remaining development tools 640, font 650.
 - System packages: host service tools 700, fastfetch 800, Git 810, utilities 820,
-  tmux 830, Vim 840, Linux host applications 850. Upstream module contributions
-  retain their normal order.
+  tmux 830, Vim 840, Plasma applications 850, office/media 851, AMD GPU tools
+  852. Upstream module contributions retain their normal order.
 - Fish initialization uses order 900, after fzf and before normal upstream hooks.
 
 These are list order priorities, not package metadata priorities. Do not
