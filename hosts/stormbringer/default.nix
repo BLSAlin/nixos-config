@@ -23,6 +23,7 @@
   };
   bls.virtualization.enabled = true;
   bls.gaming.profile = "full";
+  bls.pkgs.sunshine.enable = false;
   programs.nix-ld.enable = true;
   services.sunshine.settings.output_name = "DP-2";
   home-manager.users.${user}.home.homeDirectory = "/home/${user}";
