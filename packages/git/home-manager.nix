@@ -20,7 +20,21 @@ in
               name = lib.mkDefault "Alin Andrei Balasa";
             };
             credential = {
-              "https://git.blsalin.dev".username = lib.mkDefault "BLSAlin";
+              "https://git.blsalin.dev" = {
+                username = lib.mkDefault "BLSAlin";
+                # Reset the inherited GCM helper for this Forgejo host. Preserve
+                # OAuth expiry/refresh metadata in the platform's secure store.
+                helper = lib.mkDefault [
+                  ""
+                  (
+                    if pkgs.stdenv.hostPlatform.isDarwin then
+                      "${pkgs.git}/bin/git-credential-osxkeychain"
+                    else
+                      "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret"
+                  )
+                  "${pkgs.git-credential-oauth}/bin/git-credential-oauth"
+                ];
+              };
               helper = lib.mkDefault "manager";
               credentialStore = lib.mkDefault "secretservice";
             };

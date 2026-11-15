@@ -13,14 +13,6 @@
 {
   imports = [ ./linux-ssh.nix ];
 
-  nixpkgs.overlays = [
-    (_: prev: {
-      openldap = prev.openldap.overrideAttrs (_: {
-        doCheck = false;
-      });
-    })
-  ];
-
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 

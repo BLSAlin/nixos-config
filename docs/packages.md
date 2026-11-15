@@ -53,6 +53,18 @@ them. The hms abbreviation does not correspond to a standalone flake output.
 The unfinished gf/gr additions were not part of the active baseline and are
 not enabled. Eza's integration is retained, corrected, and disabled by default.
 
+## Git authentication
+
+Git uses `git-credential-oauth` for `https://git.blsalin.dev` only, with
+Secret Service storage on Linux and Keychain on macOS. The host-specific
+helper list resets the inherited GCM helper, checks secure storage first,
+then obtains or refreshes OAuth credentials. Absolute helper paths retain
+the required packages without replacing the system Git. GCM remains the
+default for other hosts. Each machine needs one initial browser authorization;
+later logins can still be required if the refresh token expires or is revoked.
+This avoids GCM's generic-provider access-token expiry limitation tracked in
+https://github.com/git-ecosystem/git-credential-manager/issues/2059.
+
 ## Profiles
 
 - `bls.development.enable`: existing user development inventory, including ticket.

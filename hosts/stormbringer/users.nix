@@ -26,4 +26,9 @@
     };
     groups.docker = { };
   };
+
+  services.displayManager = {
+    autoLogin.enable = true;
+    autoLogin.user = "${user}";
+  };
 }

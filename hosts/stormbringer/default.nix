@@ -27,6 +27,10 @@
   services.sunshine.settings.output_name = "DP-2";
   home-manager.users.${user}.home.homeDirectory = "/home/${user}";
 
+  # Test an idle GPU hang workaround: clear GFXOFF (0x8000) from the observed
+  # default mask (0xfff7bfff), preserving the other power-management features.
+  boot.kernelParams = [ "amdgpu.ppfeaturemask=0xfff73fff" ];
+
   boot.extraModprobeConfig = ''
     options cfg80211 ieee80211_regdom=DE
   '';

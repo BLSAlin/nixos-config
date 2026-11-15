@@ -31,6 +31,8 @@
 
         claude-code
         codex
+        chatgpt
+
         python3
         uv
 
