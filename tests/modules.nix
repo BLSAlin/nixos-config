@@ -116,6 +116,21 @@ let
       }
     ];
   };
+  desktop = name: extra: make {
+    hm = true;
+    extra = [
+      ../modules/desktop.nix
+      { bls.desktop = { enable = true; environment = name; }; }
+    ] ++ extra;
+  };
+  plasma = desktop "plasma" [ ];
+  gnome = desktop "gnome" [ ];
+  noDesktop = desktop "gnome" [ ({ lib, ... }: {
+    bls.desktop.enable = lib.mkForce false;
+  }) ];
+  noPhone = desktop "gnome" [ { bls.pkgs.kdeconnect.enable = false; } ];
+  hasGSConnect = c: lib.any (p: lib.getName p == "gnome-shell-extension-gsconnect") (h c).home.packages;
+  hasPortal = c: name: lib.any (p: lib.getName p == name) c.xdg.portal.extraPortals;
   overridden = make {
     hm = true;
     extra = [
@@ -147,6 +162,60 @@ let
     ];
   };
   checks = {
+    desktopAutoLogin = lib.all (name:
+      let c = desktop name [ { bls.desktop.autoLogin = { enable = true; user = "guest"; }; } ];
+      in c.services.displayManager.autoLogin.enable
+        && c.services.displayManager.autoLogin.user == "guest"
+        && c.services.displayManager.defaultSession == name
+    ) [ "plasma" "gnome" ];
+    desktopAutoLoginMissingUser = lib.all (name:
+      let c = desktop name [ { bls.desktop.autoLogin.enable = true; } ];
+      in lib.any (a: !a.assertion && lib.hasPrefix "bls.desktop.autoLogin.enable requires" a.message) c.assertions
+    ) [ "plasma" "gnome" ];
+    desktopAutoLoginNoDefaultUser = plasma.bls.desktop.autoLogin.user == null
+      && gnome.bls.desktop.autoLogin.user == null;
+    desktopAutoLoginOff = !plasma.services.displayManager.autoLogin.enable
+      && !gnome.services.displayManager.autoLogin.enable;
+    gdmAutoLogin = let
+      c = desktop "gnome" [ { bls.desktop.autoLogin = { enable = true; user = "alin"; }; } ];
+    in c.services.displayManager.gdm.settings.daemon.AutomaticLoginEnable
+      && c.services.displayManager.gdm.settings.daemon.AutomaticLogin == "alin";
+    desktopAutoLoginOverride = !(desktop "gnome" [ {
+      bls.desktop.autoLogin.enable = true;
+      bls.desktop.autoLogin.user = "alin";
+      services.displayManager.autoLogin.enable = false;
+    } ]).services.displayManager.autoLogin.enable;
+    plasmaDesktop = plasma.services.desktopManager.plasma6.enable
+      && plasma.services.displayManager.sddm.enable
+      && !plasma.services.desktopManager.gnome.enable
+      && !plasma.services.displayManager.gdm.enable
+      && plasma.services.blueman.enable
+      && (h plasma).services.kdeconnect.enable
+      && !hasGSConnect plasma
+      && hasPortal plasma "xdg-desktop-portal-kde";
+    gnomeDesktop = gnome.services.desktopManager.gnome.enable
+      && gnome.services.displayManager.gdm.enable
+      && !gnome.services.desktopManager.plasma6.enable
+      && !gnome.services.displayManager.sddm.enable
+      && !gnome.services.blueman.enable
+      && gnome.hardware.bluetooth.enable
+      && !(h gnome).services.kdeconnect.enable
+      && hasGSConnect gnome
+      && lib.hasInfix "gsconnect@andyholmes.github.io"
+        (toString (h gnome).dconf.settings."org/gnome/shell".enabled-extensions)
+      && hasPortal gnome "xdg-desktop-portal-gnome";
+    desktopDisabled = !noDesktop.services.desktopManager.gnome.enable
+      && !noDesktop.services.desktopManager.plasma6.enable
+      && !noDesktop.services.displayManager.gdm.enable
+      && !noDesktop.services.displayManager.sddm.enable
+      && !noDesktop.services.blueman.enable
+      && !hasGSConnect noDesktop;
+    gnomePhoneDisabled = !hasGSConnect noPhone
+      && !(h noPhone).services.kdeconnect.enable
+      && !((h noPhone).dconf.settings ? "org/gnome/shell");
+    desktopBluetoothOverride = (desktop "gnome" [ {
+      services.blueman.enable = true;
+    } ]).services.blueman.enable;
     syntheticFish = synthetic.config.programs.fish.enable;
     kdeConnectFirewall =
       let

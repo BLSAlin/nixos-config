@@ -75,6 +75,13 @@ https://github.com/git-ecosystem/git-credential-manager/issues/2059.
 - `bls.desktop.enable`: Linux display, sound, Bluetooth, and Flatpak services;
   `bls.desktop.environment` defaults to plasma and also supports gnome. Plasma
   adds Kate and KCalc as system packages.
+- `bls.desktop.autoLogin.enable`: automatically log the host-selected user into the
+  selected desktop through SDDM or GDM. Defaults to false; Stormbringer enables
+  it alongside its desktop selection in `hosts/stormbringer/default.nix`.
+  The default session follows `bls.desktop.environment`.
+- `bls.desktop.autoLogin.user`: explicit per-host login user, defaulting to null.
+  Enabling autologin without setting this user fails evaluation. Stormbringer
+  explicitly selects `alin`.
 - `bls.printing.enable`: CUPS printing on Linux; `bls.printing.drivers` accepts
   multiple driver families. `brother` installs brlaser, brgenml1lpr, and
   brgenml1cupswrapper; `hp` installs HPLIP; `epson` installs Epson ESC/P-R.
@@ -90,9 +97,12 @@ All current hosts select development and graphical use. Stormbringer selects
 Plasma and full gaming. Higher-level profiles assume integrated Home Manager;
 individual package modules also evaluate without it.
 
-Breeze and KDE Connect keep their historical defaults even when selecting a
-different desktop. Native options can override them; introducing automatic
-desktop-dependent behavior is a separate choice.
+Blueman defaults to Plasma only; GNOME uses its built-in Bluetooth settings.
+With `bls.pkgs.kdeconnect.enable`, Plasma uses the KDE Connect user service,
+while GNOME installs and enables the GSConnect extension. Both use the KDE
+Connect phone app and the same firewall ports. Other GNOME preferences remain
+unmanaged. Breeze remains in Steam's extra packages regardless of desktop.
+Stormbringer temporarily disables Sunshine while retaining the full gaming profile.
 
 The shared Linux module enables NetworkManager, the firewall, and Avahi.
 It also retains Stormbringer's interface-specific Wake-on-LAN setting behind a

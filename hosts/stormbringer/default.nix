@@ -16,7 +16,14 @@
   bls.pkgs.hardware.amdGpu.enable = true;
   bls.development.enable = true;
   bls.pcUse.enable = true;
-  bls.desktop.enable = true;
+  bls.desktop = {
+    enable = true;
+    environment = "plasma";
+    autoLogin = {
+      enable = true;
+      user = "alin";
+    };
+  };
   bls.printing = {
     enable = true;
     drivers = [ "brother" ];
