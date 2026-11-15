@@ -8,6 +8,7 @@
     ./service-user.nix
     ./homebrew.nix
     ./services/colima.nix
+    ./services/grafana-egress-relay.nix
     ./services/nas-drive.nix
     ./services/ollama.nix
     ./services/jellyfin.nix
